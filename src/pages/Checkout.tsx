@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useCart } from '../contexts/CartContext'
 import { useToast } from '../contexts/ToastContext'
@@ -18,10 +18,11 @@ function Checkout() {
   })
 
   // Redirect if cart is empty
-  if (cart.length === 0 && !isProcessing) {
-    navigate('/products')
-    return null
-  }
+  useEffect(() => {
+    if (cart.length === 0 && !isProcessing) {
+      navigate('/products')
+    }
+  }, [cart.length, isProcessing, navigate])
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({
