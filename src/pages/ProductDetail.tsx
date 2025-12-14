@@ -1,16 +1,9 @@
 import { useParams, Link } from 'react-router-dom'
+import { products } from '../data/products'
 
 function ProductDetail() {
   const { id } = useParams()
-
-  const productDetails = {
-    '1': { name: 'Classic Jeans', price: '$79.99', description: 'Timeless style with a perfect fit.' },
-    '2': { name: 'Skinny Jeans', price: '$89.99', description: 'Modern slim fit for a sleek look.' },
-    '3': { name: 'Relaxed Fit', price: '$69.99', description: 'Comfortable and casual for everyday wear.' },
-    '4': { name: 'Bootcut Jeans', price: '$74.99', description: 'Classic bootcut style for versatile styling.' },
-  }
-
-  const product = productDetails[id as keyof typeof productDetails]
+  const product = products.find(p => p.id === Number(id))
 
   if (!product) {
     return (

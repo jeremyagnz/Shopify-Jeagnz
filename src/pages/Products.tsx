@@ -1,12 +1,7 @@
 import { Link, Outlet } from 'react-router-dom'
+import { products } from '../data/products'
 
 function Products() {
-  const products = [
-    { id: 1, name: 'Classic Jeans', price: '$79.99' },
-    { id: 2, name: 'Skinny Jeans', price: '$89.99' },
-    { id: 3, name: 'Relaxed Fit', price: '$69.99' },
-    { id: 4, name: 'Bootcut Jeans', price: '$74.99' },
-  ]
 
   return (
     <div>
