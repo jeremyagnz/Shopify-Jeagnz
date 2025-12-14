@@ -1,8 +1,12 @@
 # Server
 
-Express server with TypeScript, CORS, JSON body parsing, and MongoDB connection.
+Express server with TypeScript, CORS, JSON body parsing, and MongoDB connection. 
+
+**🚀 Now deployed as Netlify Functions for serverless operation!**
 
 > 📖 **[Ver Guía de Pruebas (TESTING_GUIDE.md)](./TESTING_GUIDE.md)** - Instrucciones paso a paso para probar el servidor y verificar la conexión a MongoDB.
+
+> 🌐 **[Ver Guía de Deployment (../DEPLOYMENT.md)](../DEPLOYMENT.md)** - Instrucciones completas para desplegar en Netlify.
 
 ## Features
 
@@ -12,6 +16,8 @@ Express server with TypeScript, CORS, JSON body parsing, and MongoDB connection.
 - ✅ **JSON Body Parsing**: Automatic JSON request body parsing
 - ✅ **MongoDB Connection**: Mongoose ODM for MongoDB integration
 - ✅ **Environment Variables**: Dotenv for configuration management
+- ✅ **Netlify Functions**: Serverless deployment with automatic scaling
+- ✅ **Serverless-HTTP**: Express wrapper for serverless environments
 
 ## Setup
 
@@ -36,30 +42,63 @@ Express server with TypeScript, CORS, JSON body parsing, and MongoDB connection.
 
 ## Running the Server
 
-### Development Mode (with hot reload)
+### 🌐 With Netlify Functions (Recommended for Production-like Testing)
+
+**Local development with Netlify CLI:**
+```bash
+npm run dev:netlify
+```
+
+This will:
+- Start Vite dev server on port 5173
+- Start Netlify Functions on port 8888
+- Provide a unified development experience at `http://localhost:8888`
+- Simulate the production Netlify environment locally
+
+**Access your API at:**
+- API Info: `http://localhost:8888/api`
+- Health Check: `http://localhost:8888/api/health`
+- Interactive Docs: `http://localhost:8888/api/docs`
+
+### 🔧 Standalone Express Server (Local Development)
+
+**Development Mode (with hot reload):**
 ```bash
 npm run server
 ```
 
-### Build for Production
+**Build for Production:**
 ```bash
 npm run server:build
 ```
 
-### Start Production Server
+**Start Production Server:**
 ```bash
 npm run server:start
 ```
 
 ## API Endpoints
 
-### Health Check
+All endpoints are available both in standalone mode and as Netlify Functions.
+
+### 📋 API Information
+- **GET** `/api`
+- Returns API information and list of all available endpoints
+- **Production URL:** `https://shopify-jeagnz.netlify.app/api`
+
+### 🏥 Health Check
 - **GET** `/api/health`
 - Returns server and MongoDB connection status
+- **Production URL:** `https://shopify-jeagnz.netlify.app/api/health`
+
+### 📖 Interactive Documentation
+- **GET** `/api/docs`
+- Beautiful, interactive HTML documentation with testing interface
+- **Production URL:** `https://shopify-jeagnz.netlify.app/api/docs`
 
 ### Root
 - **GET** `/`
-- Returns API information
+- Returns basic API information
 
 ## Configuration
 
@@ -71,22 +110,69 @@ The default MongoDB connection string is `mongodb://localhost:27017/shopify-jeag
 
 ## Testing the Server
 
-### Quick Test
+### 🧪 Testing with Netlify Functions (Local)
 
-Once the server is running, you can test it in several ways:
+1. **Start Netlify Dev:**
+   ```bash
+   npm run dev:netlify
+   ```
 
-1. **Browser**: Open `http://localhost:5000/` and `http://localhost:5000/api/health`
-2. **curl**: 
+2. **Test the endpoints:**
+   ```bash
+   # API Information
+   curl http://localhost:8888/api
+   
+   # Health Check
+   curl http://localhost:8888/api/health
+   
+   # Open interactive docs in browser
+   open http://localhost:8888/api/docs
+   ```
+
+### 🔧 Testing Standalone Server
+
+1. **Start the server:**
+   ```bash
+   npm run server
+   ```
+
+2. **Test the endpoints:**
    ```bash
    curl http://localhost:5000/
    curl http://localhost:5000/api/health
    ```
-3. **Test Script**: 
+
+3. **Test Script:**
    ```bash
    node server/test-endpoints.js
    ```
 
 See [TESTING_GUIDE.md](./TESTING_GUIDE.md) for detailed testing instructions.
+
+## 🌐 Production Deployment
+
+The API is deployed to Netlify Functions and accessible at:
+
+**Base URL:** `https://shopify-jeagnz.netlify.app`
+
+**Endpoints:**
+- API Info: `https://shopify-jeagnz.netlify.app/api`
+- Health Check: `https://shopify-jeagnz.netlify.app/api/health`
+- Interactive Docs: `https://shopify-jeagnz.netlify.app/api/docs`
+
+### Viewing Logs in Netlify
+
+1. Go to [Netlify Dashboard](https://app.netlify.com)
+2. Select your site: `shopify-jeagnz`
+3. Navigate to **Functions** tab
+4. Click on a function to view its logs
+5. Use the **Logs** tab to see real-time function execution
+
+### Monitoring
+
+- **Function Analytics:** Available in Netlify Dashboard
+- **Error Tracking:** Check function logs for errors
+- **Performance:** Monitor function execution time in the dashboard
 
 ## Technology Stack
 
