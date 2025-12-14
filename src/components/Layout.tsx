@@ -19,36 +19,36 @@ function Layout() {
   const totalItems = getTotalItems()
 
   return (
-    <div className="min-h-screen flex flex-col">
-      <header className="bg-blue-600 text-white shadow-lg">
+    <div className="min-h-screen flex flex-col bg-neutral-50">
+      <header className="bg-primary-600 text-white shadow-lg">
         <nav className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
             <h1 className="text-xl sm:text-2xl font-bold">Shopify Jeagnz</h1>
             
             {/* Desktop Navigation */}
             <div className="hidden md:flex items-center gap-4 lg:gap-6">
-              <Link to="/" className="hover:text-blue-200 transition-colors">
+              <Link to="/" className="hover:text-primary-100 transition-colors font-medium">
                 Home
               </Link>
-              <Link to="/about" className="hover:text-blue-200 transition-colors">
+              <Link to="/about" className="hover:text-primary-100 transition-colors font-medium">
                 About
               </Link>
-              <Link to="/products" className="hover:text-blue-200 transition-colors">
+              <Link to="/products" className="hover:text-primary-100 transition-colors font-medium">
                 Products
               </Link>
-              <Link to="/contact" className="hover:text-blue-200 transition-colors">
+              <Link to="/contact" className="hover:text-primary-100 transition-colors font-medium">
                 Contact
               </Link>
               <button
                 onClick={toggleCart}
-                className="relative p-2 hover:bg-blue-700 rounded-lg transition-colors"
+                className="relative p-2 hover:bg-primary-700 rounded-lg transition-colors"
                 aria-label="Shopping cart"
               >
                 <svg className="w-6 h-6" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" stroke="currentColor">
                   <path d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
                 </svg>
                 {totalItems > 0 && (
-                  <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
+                  <span className="absolute -top-1 -right-1 bg-secondary-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center font-bold shadow-md">
                     {totalItems}
                   </span>
                 )}
@@ -59,21 +59,21 @@ function Layout() {
             <div className="md:hidden flex items-center gap-2">
               <button
                 onClick={toggleCart}
-                className="relative p-2 rounded-lg hover:bg-blue-700 transition-colors"
+                className="relative p-2 rounded-lg hover:bg-primary-700 transition-colors"
                 aria-label="Shopping cart"
               >
                 <svg className="w-6 h-6" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" stroke="currentColor">
                   <path d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
                 </svg>
                 {totalItems > 0 && (
-                  <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
+                  <span className="absolute -top-1 -right-1 bg-secondary-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center font-bold shadow-md">
                     {totalItems}
                   </span>
                 )}
               </button>
               <button
                 onClick={toggleMobileMenu}
-                className="p-2 rounded-lg hover:bg-blue-700 transition-colors"
+                className="p-2 rounded-lg hover:bg-primary-700 transition-colors"
                 aria-label="Toggle menu"
               >
                 <svg
@@ -101,7 +101,7 @@ function Layout() {
               <li>
                 <Link
                   to="/"
-                  className="block py-2 px-4 rounded hover:bg-blue-700 transition-colors"
+                  className="block py-2 px-4 rounded hover:bg-primary-700 transition-colors font-medium"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   Home
@@ -110,7 +110,7 @@ function Layout() {
               <li>
                 <Link
                   to="/about"
-                  className="block py-2 px-4 rounded hover:bg-blue-700 transition-colors"
+                  className="block py-2 px-4 rounded hover:bg-primary-700 transition-colors font-medium"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   About
@@ -119,7 +119,7 @@ function Layout() {
               <li>
                 <Link
                   to="/products"
-                  className="block py-2 px-4 rounded hover:bg-blue-700 transition-colors"
+                  className="block py-2 px-4 rounded hover:bg-primary-700 transition-colors font-medium"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   Products
@@ -128,7 +128,7 @@ function Layout() {
               <li>
                 <Link
                   to="/contact"
-                  className="block py-2 px-4 rounded hover:bg-blue-700 transition-colors"
+                  className="block py-2 px-4 rounded hover:bg-primary-700 transition-colors font-medium"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   Contact
@@ -174,9 +174,12 @@ function Layout() {
         <Outlet />
       </main>
 
-      <footer className="bg-gray-800 text-white py-4 sm:py-6">
-        <div className="container mx-auto px-4 text-center">
-          <p className="text-sm sm:text-base">&copy; 2025 Shopify Jeagnz. All rights reserved.</p>
+      <footer className="bg-neutral-900 text-neutral-100 py-6 sm:py-8 mt-auto">
+        <div className="container mx-auto px-4">
+          <div className="text-center">
+            <p className="text-sm sm:text-base mb-2">&copy; 2025 Shopify Jeagnz. All rights reserved.</p>
+            <p className="text-xs sm:text-sm text-neutral-400">Premium denim for every style</p>
+          </div>
         </div>
       </footer>
     </div>

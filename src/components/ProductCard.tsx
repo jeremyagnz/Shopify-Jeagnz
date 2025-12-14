@@ -9,16 +9,17 @@ function ProductCard({ product }: ProductCardProps) {
   return (
     <Link
       to={`/products/${product.id}`}
-      className="bg-white border border-gray-200 rounded-lg overflow-hidden hover:shadow-lg transition-shadow flex flex-col h-full"
+      className="bg-white border border-neutral-200 rounded-xl overflow-hidden hover:shadow-xl hover:border-primary-300 transition-all duration-300 flex flex-col h-full group"
     >
-      <div className="bg-gray-200 aspect-square flex items-center justify-center">
-        <span className="text-gray-400 text-sm sm:text-base">Product Image</span>
+      <div className="bg-gradient-to-br from-neutral-100 to-neutral-200 aspect-square flex items-center justify-center relative overflow-hidden">
+        <span className="text-neutral-400 text-sm sm:text-base font-medium">Product Image</span>
+        <div className="absolute inset-0 bg-primary-600/0 group-hover:bg-primary-600/5 transition-colors duration-300"></div>
       </div>
-      <div className="p-3 sm:p-4 md:p-6 flex flex-col flex-1">
-        <h3 className="text-base sm:text-lg md:text-xl font-semibold mb-2 line-clamp-2">
+      <div className="p-3 sm:p-4 md:p-5 flex flex-col flex-1">
+        <h3 className="text-base sm:text-lg md:text-xl font-bold mb-2 line-clamp-2 text-neutral-900 group-hover:text-primary-600 transition-colors">
           {product.name}
         </h3>
-        <p className="text-blue-600 font-bold text-lg sm:text-xl mt-auto">
+        <p className="text-primary-600 font-bold text-lg sm:text-xl mt-auto">
           {product.price}
         </p>
       </div>
