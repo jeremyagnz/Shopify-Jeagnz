@@ -10,6 +10,7 @@ function ProductCard({ product }: ProductCardProps) {
   const { addToCart } = useCart()
 
   const handleAddToCart = (e: React.MouseEvent) => {
+    // Prevent navigation to product detail page and stop event bubbling to parent Link
     e.preventDefault()
     e.stopPropagation()
     addToCart(product)
@@ -34,6 +35,7 @@ function ProductCard({ product }: ProductCardProps) {
         <button
           onClick={handleAddToCart}
           className="mt-auto w-full bg-gradient-to-r from-primary-600 to-primary-700 hover:from-primary-700 hover:to-primary-800 text-white font-bold py-2 px-4 rounded-lg transition-all text-sm shadow-md hover:shadow-lg transform hover:-translate-y-0.5"
+          aria-label={`Add ${product.name} to cart`}
         >
           Add to Cart
         </button>
