@@ -58,7 +58,9 @@ app.get('/api/health', (req: Request, res: Response) => {
   });
 });
 
-// Mock product data
+// Mock product data for API endpoints
+// Note: This is duplicated from src/data/products.ts to keep the API function self-contained
+// and avoid bundling frontend dependencies. In a production setup, this would come from a database.
 const mockProducts = [
   { id: 1, name: 'Classic Jeans', price: '$79.99', description: 'Timeless style with a perfect fit.', featured: true },
   { id: 2, name: 'Skinny Jeans', price: '$89.99', description: 'Modern slim fit for a sleek look.', featured: true },

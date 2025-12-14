@@ -15,7 +15,8 @@ function Toast({ message, onClose }: ToastProps) {
   const [isVisible, setIsVisible] = useState(false)
 
   useEffect(() => {
-    // Trigger animation after mount
+    // Trigger animation after mount - small delay ensures CSS transition is applied
+    // This allows the component to render in its initial state before transitioning
     setTimeout(() => setIsVisible(true), 10)
 
     // Auto-dismiss after 3 seconds

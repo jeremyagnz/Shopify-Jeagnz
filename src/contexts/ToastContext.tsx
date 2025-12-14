@@ -22,7 +22,7 @@ export function ToastProvider({ children }: { children: ReactNode }) {
   const [toasts, setToasts] = useState<ToastMessage[]>([])
 
   const showToast = (message: string, type: 'success' | 'error' | 'info' = 'success') => {
-    const id = Math.random().toString(36).substring(2, 9)
+    const id = `${Date.now()}-${Math.random().toString(36).substring(2, 9)}`
     const newToast: ToastMessage = { id, message, type }
     setToasts((prevToasts) => [...prevToasts, newToast])
   }
