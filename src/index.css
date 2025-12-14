@@ -130,24 +130,21 @@
   }
 
   /* Dark mode support */
-  .dark {
+  :root.dark {
     color-scheme: dark;
-  }
-
-  .dark body {
-    background-color: var(--color-neutral-900);
     color: var(--color-neutral-100);
+    background-color: var(--color-neutral-900);
   }
 
-  .dark h1, .dark h2, .dark h3, .dark h4, .dark h5, .dark h6 {
+  :root.dark h1, :root.dark h2, :root.dark h3, :root.dark h4, :root.dark h5, :root.dark h6 {
     color: var(--color-neutral-50);
   }
 
-  .dark a {
+  :root.dark a {
     color: var(--color-primary-400);
   }
 
-  .dark a:hover {
+  :root.dark a:hover {
     color: var(--color-primary-300);
   }
 }
