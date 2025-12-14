@@ -1,0 +1,51 @@
+[build]
+  # Command to build the Vite frontend
+  command = "npm run build"
+  
+  # Directory where Vite outputs the built files
+  publish = "dist"
+  
+  # Directory where Netlify Functions are located
+  functions = "netlify/functions"
+
+[build.environment]
+  # Node version to use
+  NODE_VERSION = "20"
+
+[dev]
+  # Command to run for local development
+  command = "npm run dev"
+  
+  # Port for local development server
+  port = 5173
+  
+  # Port for Netlify Functions in local dev
+  functionsPort = 8888
+
+# Redirect all /api/* requests to Netlify Functions
+[[redirects]]
+  from = "/api/*"
+  to = "/.netlify/functions/api/:splat"
+  status = 200
+
+# Redirect /api/docs to the docs function
+[[redirects]]
+  from = "/api/docs"
+  to = "/.netlify/functions/docs"
+  status = 200
+
+# SPA fallback - redirect all other requests to index.html for client-side routing
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+[functions]
+  # Directory where compiled functions will be output
+  directory = "netlify/functions"
+  
+  # Node bundler to use
+  node_bundler = "esbuild"
+  
+  # Include node_modules in function bundles
+  included_files = ["node_modules/**"]
