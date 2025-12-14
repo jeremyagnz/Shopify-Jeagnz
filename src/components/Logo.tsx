@@ -2,7 +2,7 @@ interface LogoProps {
   className?: string
 }
 
-function Logo({ className = "w-8 h-8" }: LogoProps) {
+function Logo({ className = "w-7 h-7 sm:w-8 sm:h-8" }: LogoProps) {
   return (
     <svg
       className={className}
@@ -37,7 +37,7 @@ function Logo({ className = "w-8 h-8" }: LogoProps) {
         fontWeight="bold"
         textAnchor="middle"
         fill="white"
-        fontFamily="Inter, sans-serif"
+        style={{ fontFamily: 'inherit' }}
       >
         J
       </text>
