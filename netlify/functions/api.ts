@@ -119,6 +119,105 @@ app.get('/api/products/:id', (req: Request, res: Response) => {
   });
 });
 
+// POST create new product
+app.post('/api/products', (req: Request, res: Response) => {
+  const { name, price, description, featured } = req.body;
+  
+  // Validation
+  if (!name || !price || !description) {
+    return res.status(400).json({
+      status: 'error',
+      message: 'Missing required fields: name, price, and description are required',
+      timestamp: new Date().toISOString()
+    });
+  }
+  
+  // Create new product with auto-generated ID
+  // Use reduce for better performance with large arrays
+  const maxId = mockProducts.reduce((max, p) => Math.max(max, p.id), 0);
+  const newProduct = {
+    id: maxId + 1,
+    name,
+    price,
+    description,
+    featured: featured ?? false
+  };
+  
+  mockProducts.push(newProduct);
+  
+  res.status(201).json({
+    status: 'success',
+    data: newProduct,
+    message: 'Product created successfully',
+    timestamp: new Date().toISOString()
+  });
+});
+
+// PUT update existing product
+app.put('/api/products/:id', (req: Request, res: Response) => {
+  const productId = parseInt(req.params.id);
+  const productIndex = mockProducts.findIndex(p => p.id === productId);
+  
+  if (productIndex === -1) {
+    return res.status(404).json({
+      status: 'error',
+      message: 'Product not found',
+      timestamp: new Date().toISOString()
+    });
+  }
+  
+  const { name, price, description, featured } = req.body;
+  
+  // Validation
+  if (!name || !price || !description) {
+    return res.status(400).json({
+      status: 'error',
+      message: 'Missing required fields: name, price, and description are required',
+      timestamp: new Date().toISOString()
+    });
+  }
+  
+  // Update product
+  mockProducts[productIndex] = {
+    id: productId,
+    name,
+    price,
+    description,
+    featured: featured ?? false
+  };
+  
+  res.json({
+    status: 'success',
+    data: mockProducts[productIndex],
+    message: 'Product updated successfully',
+    timestamp: new Date().toISOString()
+  });
+});
+
+// DELETE product
+app.delete('/api/products/:id', (req: Request, res: Response) => {
+  const productId = parseInt(req.params.id);
+  const productIndex = mockProducts.findIndex(p => p.id === productId);
+  
+  if (productIndex === -1) {
+    return res.status(404).json({
+      status: 'error',
+      message: 'Product not found',
+      timestamp: new Date().toISOString()
+    });
+  }
+  
+  const deletedProduct = mockProducts[productIndex];
+  mockProducts.splice(productIndex, 1);
+  
+  res.json({
+    status: 'success',
+    data: deletedProduct,
+    message: 'Product deleted successfully',
+    timestamp: new Date().toISOString()
+  });
+});
+
 // API documentation endpoint
 app.get('/api', (req: Request, res: Response) => {
   res.json({
@@ -136,10 +235,27 @@ app.get('/api', (req: Request, res: Response) => {
         method: 'GET',
         description: 'Get all products'
       },
+      createProduct: {
+        path: '/api/products',
+        method: 'POST',
+        description: 'Create a new product',
+        body: { name: 'string', price: 'string', description: 'string', featured: 'boolean (optional)' }
+      },
       productById: {
         path: '/api/products/:id',
         method: 'GET',
         description: 'Get a specific product by ID'
+      },
+      updateProduct: {
+        path: '/api/products/:id',
+        method: 'PUT',
+        description: 'Update an existing product',
+        body: { name: 'string', price: 'string', description: 'string', featured: 'boolean (optional)' }
+      },
+      deleteProduct: {
+        path: '/api/products/:id',
+        method: 'DELETE',
+        description: 'Delete a product by ID'
       },
       docs: {
         path: '/api/docs',

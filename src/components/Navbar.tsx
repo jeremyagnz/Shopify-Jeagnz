@@ -66,6 +66,9 @@ function Navbar({ onCartToggle }: NavbarProps) {
             <Link to="/contact" className="text-white hover:text-primary-100 transition-colors font-medium">
               Contact
             </Link>
+            <Link to="/admin" className="text-white hover:text-primary-100 transition-colors font-medium">
+              Admin
+            </Link>
             <button
               onClick={toggleTheme}
               className="p-2 hover:bg-primary-700 rounded-lg transition-colors"
@@ -191,6 +194,15 @@ function Navbar({ onCartToggle }: NavbarProps) {
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 Contact
+              </Link>
+            </li>
+            <li>
+              <Link
+                to="/admin"
+                className="block py-2 px-4 rounded text-white hover:bg-primary-700 transition-colors font-medium"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                Admin
               </Link>
             </li>
           </ul>

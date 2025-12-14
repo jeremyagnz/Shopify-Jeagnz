@@ -11,6 +11,7 @@ import About from './pages/About.tsx'
 import Contact from './pages/Contact.tsx'
 import Products from './pages/Products.tsx'
 import ProductDetail from './pages/ProductDetail.tsx'
+import Admin from './pages/Admin.tsx'
 
 const router = createBrowserRouter([
   {
@@ -38,6 +39,10 @@ const router = createBrowserRouter([
             element: <ProductDetail />,
           },
         ],
+      },
+      {
+        path: 'admin',
+        element: <Admin />,
       },
     ],
   },
