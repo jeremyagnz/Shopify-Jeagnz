@@ -23,7 +23,7 @@ function Navbar({ onCartToggle }: NavbarProps) {
       timeoutId = window.setTimeout(() => {
         setIsScrolled(window.scrollY > SCROLL_THRESHOLD)
         timeoutId = null
-      }, 10)
+      }, 16)
     }
 
     window.addEventListener('scroll', handleScroll, { passive: true })
