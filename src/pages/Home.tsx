@@ -1,8 +1,11 @@
 import Hero from '../components/Hero'
 import ProductGrid from '../components/ProductGrid'
-import { products } from '../data/products'
+import { useProducts } from '../hooks/useProducts'
+import LoadingBanner from '../components/LoadingBanner'
+import { ProductSkeletonGrid } from '../components/ProductSkeleton'
 
 function Home() {
+  const { products, loading, error, retry } = useProducts()
   const featuredProducts = products.filter(product => product.featured)
 
   return (
@@ -16,7 +19,17 @@ function Home() {
 
       <section className="mb-6 sm:mb-8 md:mb-12">
         <h2 className="text-xl sm:text-2xl md:text-3xl font-bold mb-4 sm:mb-6 text-neutral-900 dark:text-neutral-100">Featured Products</h2>
-        <ProductGrid products={featuredProducts} />
+        {loading ? (
+          <>
+            <LoadingBanner message="Loading featured products..." onRetry={retry} />
+            <ProductSkeletonGrid count={4} />
+          </>
+        ) : error ? (
+          <div className="bg-yellow-50 dark:bg-yellow-900/20 border-2 border-yellow-300 dark:border-yellow-700 rounded-xl p-4 mb-6">
+            <p className="text-sm text-yellow-800 dark:text-yellow-300">{error}</p>
+          </div>
+        ) : null}
+        {!loading && <ProductGrid products={featuredProducts} />}
       </section>
 
       <section className="bg-gradient-to-br from-neutral-50 to-neutral-100 dark:from-neutral-800 dark:to-neutral-700 rounded-xl p-4 sm:p-6 md:p-8 text-center shadow-lg border border-neutral-200 dark:border-neutral-600">
