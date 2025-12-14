@@ -7,7 +7,7 @@ function Logo({ className = "w-10 h-10 sm:w-12 sm:h-12", showText = true }: Logo
   return (
     <div className="flex items-center gap-2 sm:gap-3">
       <svg
-        className={className}
+        className={`${className} text-white dark:text-white`}
         viewBox="0 0 100 100"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
@@ -62,7 +62,7 @@ function Logo({ className = "w-10 h-10 sm:w-12 sm:h-12", showText = true }: Logo
         <circle cx="50" cy="42" r="3" fill="white" />
       </svg>
       {showText && (
-        <span className="text-xl sm:text-2xl font-bold tracking-tight">
+        <span className="text-xl sm:text-2xl font-bold tracking-tight text-white dark:text-white">
           Jeagnz
         </span>
       )}
