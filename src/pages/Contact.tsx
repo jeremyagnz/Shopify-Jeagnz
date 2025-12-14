@@ -1,11 +1,11 @@
 function Contact() {
   return (
     <div className="max-w-2xl mx-auto">
-      <h1 className="text-4xl font-bold mb-6">Contact Us</h1>
-      <p className="text-lg text-gray-700 mb-8">
+      <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 sm:mb-6">Contact Us</h1>
+      <p className="text-base sm:text-lg text-gray-700 mb-6 sm:mb-8">
         Have questions? We'd love to hear from you. Send us a message and we'll respond as soon as possible.
       </p>
-      <form className="space-y-6">
+      <form className="space-y-4 sm:space-y-6">
         <div>
           <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
             Name
@@ -14,7 +14,7 @@ function Contact() {
             type="text"
             id="name"
             name="name"
-            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent"
+            className="w-full px-3 py-2 sm:px-4 sm:py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent text-sm sm:text-base"
             placeholder="Your name"
           />
         </div>
@@ -26,7 +26,7 @@ function Contact() {
             type="email"
             id="email"
             name="email"
-            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent"
+            className="w-full px-3 py-2 sm:px-4 sm:py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent text-sm sm:text-base"
             placeholder="your.email@example.com"
           />
         </div>
@@ -38,13 +38,13 @@ function Contact() {
             id="message"
             name="message"
             rows={5}
-            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent"
+            className="w-full px-3 py-2 sm:px-4 sm:py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent text-sm sm:text-base"
             placeholder="Your message..."
           />
         </div>
         <button
           type="submit"
-          className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors"
+          className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2.5 sm:py-3 px-4 sm:px-6 rounded-lg transition-colors text-sm sm:text-base"
         >
           Send Message
         </button>
