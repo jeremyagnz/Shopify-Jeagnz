@@ -7,6 +7,7 @@ A modern React application built with TypeScript and Vite, featuring a clean and
 - **React 19** - A JavaScript library for building user interfaces
 - **TypeScript** - Type-safe JavaScript
 - **Vite** - Next generation frontend tooling
+- **Tailwind CSS 4** - A utility-first CSS framework
 - **ESLint** - Code linting and formatting
 
 ## 📁 Project Structure
@@ -56,6 +57,25 @@ npm run dev
 - `npm run build` - Build for production
 - `npm run lint` - Run ESLint
 - `npm run preview` - Preview production build locally
+
+## 🎨 Tailwind CSS Configuration
+
+This project uses **Tailwind CSS v4** with custom responsive breakpoints configured:
+
+- **xs**: 475px
+- **sm**: 640px (default)
+- **md**: 768px (default)
+- **lg**: 1024px (default)
+- **xl**: 1280px (default)
+- **2xl**: 1536px (default)
+
+The configuration is defined in `src/index.css` using the `@theme` directive. You can use these breakpoints in your components like:
+
+```jsx
+<div className="xs:text-sm md:text-base lg:text-lg">
+  Responsive text
+</div>
+```
 
 ## React Compiler
 
