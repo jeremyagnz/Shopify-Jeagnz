@@ -128,4 +128,26 @@
   .animate-fade-in {
     animation: fade-in 0.2s ease-out;
   }
+
+  /* Dark mode support */
+  .dark {
+    color-scheme: dark;
+  }
+
+  .dark body {
+    background-color: var(--color-neutral-900);
+    color: var(--color-neutral-100);
+  }
+
+  .dark h1, .dark h2, .dark h3, .dark h4, .dark h5, .dark h6 {
+    color: var(--color-neutral-50);
+  }
+
+  .dark a {
+    color: var(--color-primary-400);
+  }
+
+  .dark a:hover {
+    color: var(--color-primary-300);
+  }
 }
