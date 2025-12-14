@@ -1,10 +1,12 @@
 # Server
 
-Express server with TypeScript, CORS, JSON body parsing, and MongoDB connection. 
+Express server with TypeScript, CORS, JSON body parsing, and optional MongoDB connection. 
 
 **🚀 Now deployed as Netlify Functions for serverless operation!**
 
-> 📖 **[Ver Guía de Pruebas (TESTING_GUIDE.md)](./TESTING_GUIDE.md)** - Instrucciones paso a paso para probar el servidor y verificar la conexión a MongoDB.
+> **⚡ Quick Start:** Netlify Functions work WITHOUT MongoDB by default! Deploy immediately without any database setup.
+
+> 📖 **[Ver Guía de Pruebas (TESTING_GUIDE.md)](./TESTING_GUIDE.md)** - Instrucciones paso a paso para probar el servidor.
 
 > 🌐 **[Ver Guía de Deployment (../DEPLOYMENT.md)](../DEPLOYMENT.md)** - Instrucciones completas para desplegar en Netlify.
 
@@ -14,10 +16,10 @@ Express server with TypeScript, CORS, JSON body parsing, and MongoDB connection.
 - ✅ **TypeScript**: Type-safe server-side code
 - ✅ **CORS**: Cross-Origin Resource Sharing middleware configured
 - ✅ **JSON Body Parsing**: Automatic JSON request body parsing
-- ✅ **MongoDB Connection**: Mongoose ODM for MongoDB integration
-- ✅ **Environment Variables**: Dotenv for configuration management
-- ✅ **Netlify Functions**: Serverless deployment with automatic scaling
+- ✅ **Netlify Functions**: Serverless deployment with automatic scaling (NO MongoDB required!)
 - ✅ **Serverless-HTTP**: Express wrapper for serverless environments
+- ✅ **Optional MongoDB**: Mongoose ODM available for standalone server (not required for Netlify Functions)
+- ✅ **Environment Variables**: Dotenv for configuration management
 
 ## Setup
 
@@ -26,15 +28,18 @@ Express server with TypeScript, CORS, JSON body parsing, and MongoDB connection.
    npm install
    ```
 
-2. **Configure environment variables**:
-   Create a `.env` file in the root directory (see `.env.example`):
+2. **Configure environment variables (Optional)**:
+   
+   **For Netlify Functions:** No configuration needed! Skip this step.
+   
+   **For Standalone Server:** Create a `.env` file in the root directory (see `.env.example`):
    ```env
    PORT=5000
-   MONGODB_URI=mongodb://localhost:27017/shopify-jeagnz
+   MONGODB_URI=mongodb://localhost:27017/shopify-jeagnz  # Required for standalone server
    CORS_ORIGIN=http://localhost:5173
    ```
 
-3. **Ensure MongoDB is running** (local installation or cloud service like MongoDB Atlas):
+3. **Ensure MongoDB is running** (Only needed for standalone server):
    ```bash
    # For local MongoDB
    mongod
@@ -102,11 +107,17 @@ All endpoints are available both in standalone mode and as Netlify Functions.
 
 ## Configuration
 
-### CORS
-The server is configured to accept requests from the frontend application running on `http://localhost:5173` by default. You can change this in the `.env` file.
+### Netlify Functions (Production)
+- ✅ **No configuration required** - works immediately
+- ✅ **No MongoDB needed** - functions work with test data
+- ✅ **Optional:** Add `CORS_ORIGIN` environment variable for custom origins
+- ✅ **Optional:** Add MongoDB support later by modifying `netlify/functions/api.ts`
 
-### MongoDB
-The default MongoDB connection string is `mongodb://localhost:27017/shopify-jeagnz`. Update the `MONGODB_URI` in your `.env` file to use a different database or MongoDB Atlas.
+### Standalone Server (Development)
+- **CORS:** Default accepts requests from `http://localhost:5173`. Change via `.env` file.
+- **MongoDB:** Required for standalone server. Default: `mongodb://localhost:27017/shopify-jeagnz`
+  - Update `MONGODB_URI` in `.env` for different database or MongoDB Atlas
+  - See `server/index.ts` for reference implementation
 
 ## Testing the Server
 
