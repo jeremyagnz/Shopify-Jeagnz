@@ -4,12 +4,21 @@ A modern e-commerce application built with React, TypeScript, and Vite, featurin
 
 ## 🚀 Tech Stack
 
+### Frontend
 - **React 19** - A JavaScript library for building user interfaces
 - **TypeScript** - Type-safe JavaScript
 - **Vite** - Next generation frontend tooling
 - **Tailwind CSS 4** - A utility-first CSS framework with custom responsive breakpoints
 - **React Router** - Client-side routing
 - **ESLint** - Code linting and formatting
+
+### Backend
+- **Express** - Fast, minimalist web framework for Node.js
+- **TypeScript** - Type-safe server-side code
+- **MongoDB** - NoSQL database
+- **Mongoose** - MongoDB ODM
+- **CORS** - Cross-Origin Resource Sharing middleware
+- **Dotenv** - Environment configuration management
 
 ## 📱 Mobile-First Responsive Design
 
@@ -45,6 +54,10 @@ src/
 ├── utils/         # Helper functions and utilities
 ├── main.tsx       # Application entry point
 └── index.css      # Global styles & Tailwind configuration
+
+server/
+├── index.ts       # Express server entry point
+└── README.md      # Server documentation
 ```
 
 ## ✨ Features
@@ -85,6 +98,7 @@ All pages are built with mobile-first responsive design:
 ### Prerequisites
 
 - Node.js 18+ and npm
+- MongoDB (local installation or MongoDB Atlas account)
 
 ### Installation
 
@@ -99,19 +113,38 @@ cd Shopify-Jeagnz
 npm install
 ```
 
-3. Start the development server:
+3. Configure environment variables:
+Create a `.env` file in the root directory (see `.env.example`):
+```bash
+PORT=5000
+MONGODB_URI=mongodb://localhost:27017/shopify-jeagnz
+CORS_ORIGIN=http://localhost:5173
+```
+
+4. Start the development server (frontend):
 ```bash
 npm run dev
 ```
 
-4. Open your browser and navigate to `http://localhost:5173`
+5. Start the Express server (backend):
+```bash
+npm run server
+```
+
+6. Open your browser and navigate to `http://localhost:5173`
 
 ## 📜 Available Scripts
 
-- `npm run dev` - Start the development server
-- `npm run build` - Build for production
+### Frontend
+- `npm run dev` - Start the frontend development server (Vite)
+- `npm run build` - Build frontend for production
 - `npm run lint` - Run ESLint
 - `npm run preview` - Preview production build locally
+
+### Backend
+- `npm run server` - Start the Express server with hot reload (development)
+- `npm run server:build` - Build the server TypeScript code
+- `npm run server:start` - Start the compiled server (production)
 
 ## 🎨 Tailwind CSS Configuration
 
