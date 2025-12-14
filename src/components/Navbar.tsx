@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useCart } from '../contexts/CartContext'
+import Logo from './Logo'
 
 interface NavbarProps {
   onCartToggle: () => void
@@ -20,7 +21,11 @@ function Navbar({ onCartToggle }: NavbarProps) {
     <header className="bg-primary-600 text-white shadow-lg">
       <nav className="container mx-auto px-4 py-4">
         <div className="flex items-center justify-between">
-          <h1 className="text-xl sm:text-2xl font-bold">Shopify Jeagnz</h1>
+          {/* Logo */}
+          <Link to="/" className="flex items-center gap-2 sm:gap-3 hover:opacity-90 transition-opacity">
+            <Logo className="w-7 h-7 sm:w-8 sm:h-8" />
+            <h1 className="text-xl sm:text-2xl font-bold">Shopify Jeagnz</h1>
+          </Link>
           
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center gap-4 lg:gap-6">
@@ -94,7 +99,7 @@ function Navbar({ onCartToggle }: NavbarProps) {
 
         {/* Mobile Navigation */}
         {isMobileMenuOpen && (
-          <ul className="md:hidden mt-4 space-y-2 pb-2">
+          <ul className="md:hidden mt-4 space-y-2 pb-2 animate-fade-in">
             <li>
               <Link
                 to="/"
