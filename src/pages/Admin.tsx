@@ -106,14 +106,17 @@ const Admin = () => {
     setIsSubmitting(true);
     const previousProducts = [...products];
     
+    // Determine product ID upfront
+    const productId = editingProduct 
+      ? editingProduct.id 
+      : (products.length === 0 ? 1 : Math.max(0, ...products.map(p => p.id)) + 1);
+    
     try {
       let response: { status: string; data?: Product; message?: string };
       let optimisticProduct: Product;
-      let productId: number;
 
       if (editingProduct) {
         // Optimistic update: update product in UI immediately
-        productId = editingProduct.id;
         optimisticProduct = { ...editingProduct, ...productData };
         setOptimisticUpdates(prev => new Set(prev).add(productId));
         setProducts(products.map(p => p.id === editingProduct.id ? optimisticProduct : p));
@@ -122,9 +125,8 @@ const Admin = () => {
         response = await productApi.update(editingProduct.id, productData) as { status: string; data?: Product; message?: string };
       } else {
         // Optimistic create: add temporary product with placeholder ID
-        const tempId = Math.max(...products.map(p => p.id), 0) + 1;
-        productId = tempId;
-        optimisticProduct = { id: tempId, ...productData };
+        // Handle empty array case: if products is empty, start at 1, otherwise use max + 1
+        optimisticProduct = { id: productId, ...productData };
         setOptimisticUpdates(prev => new Set(prev).add(productId));
         setProducts([...products, optimisticProduct]);
         showToast('Creating product...', 'info');
@@ -144,22 +146,19 @@ const Admin = () => {
       } else {
         throw new Error(response.message || 'Failed to save product');
       }
-      
-      // Remove from optimistic updates tracking
-      setOptimisticUpdates(prev => {
-        const next = new Set(prev);
-        next.delete(productId);
-        return next;
-      });
     } catch (err) {
       // Rollback on error: restore previous state
       setProducts(previousProducts);
       const errorMessage = err instanceof Error ? err.message : 'Failed to save product';
       showToast(API_UNAVAILABLE_MESSAGE, 'error');
       console.error(errorMessage);
-      // Clear optimistic updates on error
-      setOptimisticUpdates(new Set());
     } finally {
+      // Remove from optimistic updates tracking (in finally to ensure cleanup regardless of success/failure)
+      setOptimisticUpdates(prev => {
+        const next = new Set(prev);
+        next.delete(productId);
+        return next;
+      });
       setIsSubmitting(false);
     }
   };
