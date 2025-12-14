@@ -679,7 +679,7 @@ const getTotalWithShipping = () => {
 ### Integrar Pasarela de Pago Real
 
 ```typescript
-// Ejemplo con Stripe
+// Ejemplo con Stripe (requiere instalar: npm install @stripe/stripe-js)
 import { loadStripe } from '@stripe/stripe-js'
 
 const handlePlaceOrder = async () => {

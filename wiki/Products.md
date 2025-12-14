@@ -10,7 +10,7 @@ El módulo de productos es el corazón de Shopify Jeagnz, proporcionando una exp
 - Búsqueda en tiempo real por nombre y descripción
 - Debounce de 300ms para optimizar rendimiento
 - Resaltado visual de productos coincidentes
-- Sin resultados necesita recarga de página
+- Sin resultados, no necesita recarga de página
 
 ### 📊 Grid Responsivo
 - **Mobile (< 475px):** 1 columna

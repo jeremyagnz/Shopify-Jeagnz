@@ -575,11 +575,12 @@ describe('ProductCard', () => {
     expect(screen.getByText('$89.99')).toBeInTheDocument()
   })
   
-  it('calls onAddToCart when button clicked', () => {
+  it('calls onAddToCart when button clicked', async () => {
     const handleAddToCart = jest.fn()
+    const user = userEvent.setup()
     render(<ProductCard {...mockProduct} onAddToCart={handleAddToCart} />)
     
-    screen.getByText('Add to Cart').click()
+    await user.click(screen.getByText('Add to Cart'))
     expect(handleAddToCart).toHaveBeenCalledWith(mockProduct)
   })
 })
