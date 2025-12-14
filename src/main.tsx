@@ -4,6 +4,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import './index.css'
 import { CartProvider } from './contexts/CartContext.tsx'
 import { ToastProvider } from './contexts/ToastContext.tsx'
+import { ThemeProvider } from './contexts/ThemeContext.tsx'
 import Layout from './components/Layout.tsx'
 import Home from './pages/Home.tsx'
 import About from './pages/About.tsx'
@@ -44,10 +45,12 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <ToastProvider>
-      <CartProvider>
-        <RouterProvider router={router} />
-      </CartProvider>
-    </ToastProvider>
+    <ThemeProvider>
+      <ToastProvider>
+        <CartProvider>
+          <RouterProvider router={router} />
+        </CartProvider>
+      </ToastProvider>
+    </ThemeProvider>
   </StrictMode>,
 )
