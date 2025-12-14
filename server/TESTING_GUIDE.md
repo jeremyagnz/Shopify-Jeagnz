@@ -2,6 +2,8 @@
 
 Esta guía te muestra cómo probar el servidor Express y verificar que la base de datos MongoDB funciona correctamente.
 
+> 📸 **[Ver DEMO_OUTPUT.md](./DEMO_OUTPUT.md)** - Ejemplos visuales de todos los outputs esperados
+
 ## Requisitos Previos
 
 1. **MongoDB**: Necesitas tener MongoDB ejecutándose
