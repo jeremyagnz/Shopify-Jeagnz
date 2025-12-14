@@ -1,6 +1,7 @@
 import { createContext, useContext, useState } from 'react'
 import type { ReactNode } from 'react'
 import type { Product } from '../data/products'
+import { parsePrice } from '../utils/format'
 
 interface CartItem extends Product {
   quantity: number
@@ -70,7 +71,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
 
   const getTotalPrice = () => {
     return cart.reduce((total, item) => {
-      const price = parseFloat(item.price.replace('$', ''))
+      const price = parsePrice(item.price)
       return total + price * item.quantity
     }, 0)
   }
