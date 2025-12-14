@@ -7,6 +7,7 @@
  */
 
 const http = require('http');
+require('dotenv').config();
 
 // Colores para la terminal
 const colors = {
@@ -18,10 +19,13 @@ const colors = {
   cyan: '\x1b[36m'
 };
 
+// Read port from environment or use default
+const PORT = process.env.PORT || 5000;
+
 function makeRequest(path, callback) {
   const options = {
     hostname: 'localhost',
-    port: 5000,
+    port: PORT,
     path: path,
     method: 'GET'
   };
@@ -34,10 +38,15 @@ function makeRequest(path, callback) {
     });
 
     res.on('end', () => {
-      callback(null, {
-        statusCode: res.statusCode,
-        data: JSON.parse(data)
-      });
+      try {
+        const parsedData = JSON.parse(data);
+        callback(null, {
+          statusCode: res.statusCode,
+          data: parsedData
+        });
+      } catch (error) {
+        callback(new Error(`Failed to parse JSON response: ${error.message}. Response: ${data}`));
+      }
     });
   });
 
@@ -50,6 +59,7 @@ function makeRequest(path, callback) {
 
 console.log(`${colors.cyan}═══════════════════════════════════════════════════${colors.reset}`);
 console.log(`${colors.cyan}   Probando Servidor Express - Shopify-Jeagnz${colors.reset}`);
+console.log(`${colors.cyan}   Puerto: ${PORT}${colors.reset}`);
 console.log(`${colors.cyan}═══════════════════════════════════════════════════${colors.reset}\n`);
 
 // Test 1: Endpoint principal
