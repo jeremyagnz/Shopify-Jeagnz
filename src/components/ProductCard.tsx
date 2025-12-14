@@ -28,7 +28,11 @@ function ProductCard({ product }: ProductCardProps) {
         <span className="text-neutral-400 text-sm sm:text-base font-medium z-10">Product Image</span>
         <div className="absolute inset-0 bg-transparent group-hover:bg-primary-600/10 transition-all duration-300"></div>
         {product.featured && (
-          <div className="absolute top-3 right-3 bg-secondary-500 text-white text-xs font-bold px-3 py-1 rounded-full shadow-lg z-20">
+          <div 
+            className="absolute top-3 right-3 bg-secondary-500 text-white text-xs font-bold px-3 py-1 rounded-full shadow-lg z-20"
+            role="status"
+            aria-label="Featured product"
+          >
             Featured
           </div>
         )}

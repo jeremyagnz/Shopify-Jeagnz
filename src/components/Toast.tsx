@@ -52,7 +52,11 @@ function Toast({ message, onClose }: ToastProps) {
         isVisible ? 'translate-x-0 opacity-100 scale-100' : 'translate-x-full opacity-0 scale-95'
       } flex items-center gap-3 min-w-[300px] max-w-md backdrop-blur-sm`}
     >
-      <div className={`${styles.iconBg} rounded-full w-8 h-8 flex items-center justify-center font-bold text-lg flex-shrink-0`}>
+      <div 
+        className={`${styles.iconBg} rounded-full w-8 h-8 flex items-center justify-center font-bold text-lg flex-shrink-0`}
+        role="img"
+        aria-label={`${message.type || 'success'} icon`}
+      >
         {styles.icon}
       </div>
       <div className="flex-1">

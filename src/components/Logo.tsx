@@ -11,7 +11,10 @@ function Logo({ className = "w-10 h-10 sm:w-12 sm:h-12", showText = true }: Logo
         viewBox="0 0 100 100"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
+        role="img"
+        aria-labelledby="logo-title"
       >
+        <title id="logo-title">Jeagnz shopping bag logo</title>
         {/* Gradient definition for modern look */}
         <defs>
           <linearGradient id="bagGradient" x1="0%" y1="0%" x2="100%" y2="100%">
