@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import type { Product } from '../data/products';
 import { productApi } from '../services/api';
 import { useToast } from '../contexts/ToastContext';
@@ -21,7 +21,7 @@ const Admin = () => {
   const [optimisticUpdates, setOptimisticUpdates] = useState<Set<number>>(new Set());
   const { showToast } = useToast();
 
-  const loadProducts = async () => {
+  const loadProducts = useCallback(async () => {
     try {
       setLoading(true);
       setError(null);
@@ -48,11 +48,11 @@ const Admin = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [showToast]);
 
   useEffect(() => {
     loadProducts();
-  }, []);
+  }, [loadProducts]);
 
   const handleCreate = () => {
     setEditingProduct(null);
