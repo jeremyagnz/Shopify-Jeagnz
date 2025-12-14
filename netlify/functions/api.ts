@@ -1,5 +1,5 @@
 import { Handler } from '@netlify/functions';
-import express, { Application, Request, Response } from 'express';
+import express, { Application, Request, Response, NextFunction } from 'express';
 import serverless from 'serverless-http';
 import cors from 'cors';
 import mongoose from 'mongoose';
@@ -140,7 +140,8 @@ app.get('/', (req: Request, res: Response) => {
 });
 
 // Error handling middleware
-app.use((err: Error, req: Request, res: Response) => {
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
   console.error('Error:', err);
   res.status(500).json({
     status: 'error',
@@ -150,6 +151,8 @@ app.use((err: Error, req: Request, res: Response) => {
 });
 
 // Export the serverless function handler
-// Wrap serverless-http to match Netlify Handler type
+// Type assertion is necessary due to type incompatibility between serverless-http
+// and @netlify/functions Handler types. The runtime behavior is correct and compatible.
+// serverless-http returns a handler that works with Netlify Functions.
 const serverlessHandler = serverless(app);
 export const handler: Handler = serverlessHandler as Handler;
