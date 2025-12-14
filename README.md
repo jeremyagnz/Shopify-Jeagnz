@@ -1,6 +1,12 @@
 # Shopify-Jeagnz
 
+[![Netlify Status](https://api.netlify.com/api/v1/badges/YOUR_SITE_ID/deploy-status)](https://app.netlify.com/sites/shopify-jeagnz/deploys)
+
 A modern React application built with TypeScript and Vite, featuring a clean and organized folder structure for scalable development.
+
+## 🌐 Live Demo
+
+The application is deployed on Netlify: [https://shopify-jeagnz.netlify.app/](https://shopify-jeagnz.netlify.app/)
 
 ## 🚀 Tech Stack
 
@@ -120,4 +126,28 @@ export default defineConfig([
     },
   },
 ])
+```
+
+## 🚀 Deployment
+
+This project is configured for continuous deployment with Netlify. Any changes pushed to the `main` branch on GitHub will automatically trigger a new deployment.
+
+### Netlify Configuration
+
+The `netlify.toml` file in the root of this project configures:
+- Build command: `npm run build`
+- Publish directory: `dist`
+- Client-side routing support with redirects
+
+To set up continuous deployment:
+1. Connect your GitHub repository to Netlify
+2. Netlify will automatically detect the `netlify.toml` configuration
+3. Push changes to your repository, and Netlify will build and deploy automatically
+
+### Manual Deployment
+
+To build and deploy manually:
+```bash
+npm run build
+# Upload the dist/ folder to your hosting provider
 ```
