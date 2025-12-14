@@ -2,6 +2,8 @@
 
 Express server with TypeScript, CORS, JSON body parsing, and MongoDB connection.
 
+> 📖 **[Ver Guía de Pruebas (TESTING_GUIDE.md)](./TESTING_GUIDE.md)** - Instrucciones paso a paso para probar el servidor y verificar la conexión a MongoDB.
+
 ## Features
 
 - ✅ **Express Server**: Fast, minimalist web framework for Node.js
@@ -66,6 +68,25 @@ The server is configured to accept requests from the frontend application runnin
 
 ### MongoDB
 The default MongoDB connection string is `mongodb://localhost:27017/shopify-jeagnz`. Update the `MONGODB_URI` in your `.env` file to use a different database or MongoDB Atlas.
+
+## Testing the Server
+
+### Quick Test
+
+Once the server is running, you can test it in several ways:
+
+1. **Browser**: Open `http://localhost:5000/` and `http://localhost:5000/api/health`
+2. **curl**: 
+   ```bash
+   curl http://localhost:5000/
+   curl http://localhost:5000/api/health
+   ```
+3. **Test Script**: 
+   ```bash
+   node server/test-endpoints.js
+   ```
+
+See [TESTING_GUIDE.md](./TESTING_GUIDE.md) for detailed testing instructions.
 
 ## Technology Stack
 

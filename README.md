@@ -133,6 +133,22 @@ npm run server
 
 6. Open your browser and navigate to `http://localhost:5173`
 
+### Testing the Server
+
+To test the backend server:
+
+```bash
+# Test with browser: Open http://localhost:5000/api/health
+
+# Test with curl
+curl http://localhost:5000/api/health
+
+# Test with script
+node server/test-endpoints.js
+```
+
+See [server/TESTING_GUIDE.md](./server/TESTING_GUIDE.md) for detailed instructions.
+
 ## 📜 Available Scripts
 
 ### Frontend
