@@ -12,6 +12,7 @@ import Contact from './pages/Contact.tsx'
 import Products from './pages/Products.tsx'
 import ProductDetail from './pages/ProductDetail.tsx'
 import Admin from './pages/Admin.tsx'
+import Checkout from './pages/Checkout.tsx'
 
 const router = createBrowserRouter([
   {
@@ -43,6 +44,10 @@ const router = createBrowserRouter([
       {
         path: 'admin',
         element: <Admin />,
+      },
+      {
+        path: 'checkout',
+        element: <Checkout />,
       },
     ],
   },

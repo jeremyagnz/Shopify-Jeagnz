@@ -1,6 +1,8 @@
+import { useNavigate } from 'react-router-dom'
 import { useCart } from '../contexts/CartContext'
 
 function Cart() {
+  const navigate = useNavigate()
   const { cart, removeFromCart, updateQuantity, getTotalPrice } = useCart()
 
   if (cart.length === 0) {
@@ -69,7 +71,9 @@ function Cart() {
             ${getTotalPrice().toFixed(2)}
           </span>
         </div>
-        <button className="w-full bg-gradient-to-r from-primary-600 to-primary-700 hover:from-primary-700 hover:to-primary-800 dark:from-primary-500 dark:to-primary-600 dark:hover:from-primary-600 dark:hover:to-primary-700 text-white font-bold py-2.5 sm:py-3 px-4 sm:px-6 rounded-lg transition-all text-sm sm:text-base shadow-lg hover:shadow-xl transform hover:-translate-y-0.5">
+        <button 
+          onClick={() => navigate('/checkout')}
+          className="w-full bg-gradient-to-r from-primary-600 to-primary-700 hover:from-primary-700 hover:to-primary-800 dark:from-primary-500 dark:to-primary-600 dark:hover:from-primary-600 dark:hover:to-primary-700 text-white font-bold py-2.5 sm:py-3 px-4 sm:px-6 rounded-lg transition-all text-sm sm:text-base shadow-lg hover:shadow-xl transform hover:-translate-y-0.5">
           Proceed to Checkout
         </button>
       </div>
