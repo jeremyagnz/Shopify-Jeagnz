@@ -27,6 +27,11 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
     } else {
       root.classList.remove('dark')
     }
+
+    // Cleanup function to remove dark class on unmount
+    return () => {
+      root.classList.remove('dark')
+    }
   }, [theme])
 
   return (
