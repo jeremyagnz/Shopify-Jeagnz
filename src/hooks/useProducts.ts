@@ -19,7 +19,7 @@ const MAX_RETRIES = 2
 // Get API base URL from environment or use default
 const getApiBaseUrl = (): string => {
   // In production on Netlify, use relative URLs
-  if (window.location.hostname.includes('netlify.app')) {
+  if (window.location.hostname.endsWith('netlify.app')) {
     return ''
   }
   // For local development with Netlify Dev
@@ -93,7 +93,7 @@ const fetchProductsFromApi = async (retryCount = 0): Promise<Product[]> => {
     
     // Retry logic with exponential backoff
     if (retryCount < MAX_RETRIES) {
-      const delay = Math.pow(2, retryCount) * 1000 // 1s, 2s, 4s
+      const delay = Math.pow(2, retryCount) * 1000 // 1s, 2s
       await new Promise(resolve => setTimeout(resolve, delay))
       return fetchProductsFromApi(retryCount + 1)
     }
