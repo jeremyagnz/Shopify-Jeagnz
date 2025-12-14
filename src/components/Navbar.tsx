@@ -7,18 +7,30 @@ interface NavbarProps {
   onCartToggle: () => void
 }
 
+const SCROLL_THRESHOLD = 20
+
 function Navbar({ onCartToggle }: NavbarProps) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [isScrolled, setIsScrolled] = useState(false)
   const { getTotalItems } = useCart()
 
   useEffect(() => {
+    let timeoutId: number | null = null
+
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20)
+      if (timeoutId) return
+      
+      timeoutId = window.setTimeout(() => {
+        setIsScrolled(window.scrollY > SCROLL_THRESHOLD)
+        timeoutId = null
+      }, 10)
     }
 
-    window.addEventListener('scroll', handleScroll)
-    return () => window.removeEventListener('scroll', handleScroll)
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    return () => {
+      window.removeEventListener('scroll', handleScroll)
+      if (timeoutId) window.clearTimeout(timeoutId)
+    }
   }, [])
 
   const toggleMobileMenu = () => {
