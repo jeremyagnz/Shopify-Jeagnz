@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useCart } from '../contexts/CartContext'
 import { useToast } from '../contexts/ToastContext'
+import { parsePrice } from '../utils/format'
 
 function Checkout() {
   const navigate = useNavigate()
@@ -46,8 +47,8 @@ function Checkout() {
       // Simulate checkout processing (network delay)
       await new Promise(resolve => setTimeout(resolve, 2000))
 
-      // Simulate successful order
-      const orderNumber = Math.random().toString(36).substring(2, 11).toUpperCase()
+      // Simulate successful order - generate unique order number with timestamp
+      const orderNumber = `${Date.now()}-${Math.random().toString(36).substring(2, 9).toUpperCase()}`
       
       // Clear cart after successful order
       clearCart()
@@ -224,16 +225,20 @@ function Checkout() {
             </h2>
             
             <div className="space-y-3 mb-4">
-              {cart.map((item) => (
-                <div key={item.id} className="flex justify-between text-sm">
-                  <span className="text-neutral-700 dark:text-neutral-300">
-                    {item.name} x {item.quantity}
-                  </span>
-                  <span className="text-neutral-900 dark:text-neutral-100 font-bold">
-                    {item.price}
-                  </span>
-                </div>
-              ))}
+              {cart.map((item) => {
+                const itemPrice = parsePrice(item.price)
+                const lineTotal = itemPrice * item.quantity
+                return (
+                  <div key={item.id} className="flex justify-between text-sm">
+                    <span className="text-neutral-700 dark:text-neutral-300">
+                      {item.name} x {item.quantity}
+                    </span>
+                    <span className="text-neutral-900 dark:text-neutral-100 font-bold">
+                      ${lineTotal.toFixed(2)}
+                    </span>
+                  </div>
+                )
+              })}
             </div>
 
             <div className="border-t border-neutral-200 dark:border-neutral-700 pt-4">
