@@ -52,7 +52,7 @@ function Cart() {
                   </button>
                   <button
                     onClick={() => removeFromCart(item.id)}
-                    className="ml-auto text-red-600 hover:text-red-700 text-xs sm:text-sm font-bold uppercase tracking-wide"
+                    className="ml-auto text-error-600 hover:text-error-700 text-xs sm:text-sm font-bold uppercase tracking-wide transition-colors"
                   >
                     Remove
                   </button>

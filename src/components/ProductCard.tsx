@@ -13,7 +13,7 @@ function ProductCard({ product }: ProductCardProps) {
     >
       <div className="bg-gradient-to-br from-neutral-100 to-neutral-200 aspect-square flex items-center justify-center relative overflow-hidden">
         <span className="text-neutral-400 text-sm sm:text-base font-medium">Product Image</span>
-        <div className="absolute inset-0 bg-primary-600/0 group-hover:bg-primary-600/5 transition-colors duration-300"></div>
+        <div className="absolute inset-0 bg-transparent group-hover:bg-primary-600/5 transition-colors duration-300"></div>
       </div>
       <div className="p-3 sm:p-4 md:p-5 flex flex-col flex-1">
         <h3 className="text-base sm:text-lg md:text-xl font-bold mb-2 line-clamp-2 text-neutral-900 group-hover:text-primary-600 transition-colors">
