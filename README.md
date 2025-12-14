@@ -110,7 +110,7 @@ All pages are built with mobile-first responsive design:
 ### Prerequisites
 
 - Node.js 18+ and npm
-- MongoDB (OPTIONAL - only needed if using the standalone Express server in `server/`)
+- MongoDB (optional - only needed if using the standalone Express server in `server/`)
 
 ### Installation
 
@@ -125,11 +125,11 @@ cd Shopify-Jeagnz
 npm install
 ```
 
-3. Configure environment variables (OPTIONAL):
+3. Configure environment variables (optional):
 Create a `.env` file in the root directory if needed (see `.env.example`):
 ```bash
 PORT=5000
-# MongoDB is OPTIONAL - only needed for standalone Express server
+# MongoDB is optional - only needed for standalone Express server
 # MONGODB_URI=mongodb://localhost:27017/shopify-jeagnz
 CORS_ORIGIN=http://localhost:5173
 ```
@@ -141,7 +141,7 @@ CORS_ORIGIN=http://localhost:5173
 npm run dev
 ```
 
-5. (OPTIONAL) Start the Express server (backend) - only needed for standalone server:
+5. (Optional) Start the Express server (backend) - only needed for standalone server:
 ```bash
 npm run server
 ```
