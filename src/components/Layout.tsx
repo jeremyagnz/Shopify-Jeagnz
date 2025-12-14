@@ -38,7 +38,7 @@ function Layout() {
                   </button>
                 </div>
                 <div className="flex-1 overflow-y-auto p-4">
-                  <Cart />
+                  <Cart onClose={toggleCart} />
                 </div>
               </div>
             </div>
