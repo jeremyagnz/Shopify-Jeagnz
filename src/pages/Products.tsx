@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react'
+import { useState, useMemo, useCallback } from 'react'
 import { Outlet } from 'react-router-dom'
 import { products } from '../data/products'
 import ProductGrid from '../components/ProductGrid'
@@ -6,6 +6,10 @@ import SearchBar from '../components/SearchBar'
 
 function Products() {
   const [searchQuery, setSearchQuery] = useState('')
+  
+  const handleSearch = useCallback((query: string) => {
+    setSearchQuery(query)
+  }, [])
 
   const filteredProducts = useMemo(() => {
     if (!searchQuery.trim()) {
@@ -21,10 +25,10 @@ function Products() {
 
   return (
     <div>
-      <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 sm:mb-6 text-neutral-900 dark:text-neutral-100">
+      <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 sm:mb-6 md:mb-8 text-neutral-900 dark:text-neutral-100">
         Our Products
       </h1>
-      <SearchBar onSearch={setSearchQuery} placeholder="Search by name or description..." />
+      <SearchBar onSearch={handleSearch} placeholder="Search by name or description..." />
       {filteredProducts.length === 0 ? (
         <div className="text-center py-12">
           <p className="text-lg text-neutral-600 dark:text-neutral-400 mb-2">No products found</p>
