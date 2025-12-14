@@ -20,11 +20,21 @@ const Admin = () => {
     try {
       setLoading(true);
       setError(null);
-      const response = await productApi.getAll();
-      if (response.status === 'success') {
-        setProducts(response.data);
-      } else {
-        throw new Error(response.message || 'Failed to load products');
+      
+      try {
+        const response = await productApi.getAll();
+        if (response.status === 'success') {
+          setProducts(response.data);
+        } else {
+          throw new Error(response.message || 'Failed to load products');
+        }
+      } catch (apiError) {
+        // If API fails (e.g., in development without Netlify Dev),
+        // fall back to static data
+        console.warn('API not available, using static data:', apiError);
+        const { products: staticProducts } = await import('../data/products');
+        setProducts(staticProducts);
+        showToast('Using demo data - API not available', 'info');
       }
     } catch (err) {
       const errorMessage = err instanceof Error ? err.message : 'Failed to load products';
@@ -64,7 +74,11 @@ const Admin = () => {
       }
     } catch (err) {
       const errorMessage = err instanceof Error ? err.message : 'Failed to delete product';
-      showToast(errorMessage, 'error');
+      showToast(
+        'API not available. Changes will not persist. Deploy to Netlify to enable full functionality.',
+        'error'
+      );
+      console.error(errorMessage);
     }
   };
 
@@ -91,7 +105,11 @@ const Admin = () => {
       }
     } catch (err) {
       const errorMessage = err instanceof Error ? err.message : 'Failed to save product';
-      showToast(errorMessage, 'error');
+      showToast(
+        'API not available. Changes will not persist. Deploy to Netlify to enable full functionality.',
+        'error'
+      );
+      console.error(errorMessage);
     } finally {
       setIsSubmitting(false);
     }
