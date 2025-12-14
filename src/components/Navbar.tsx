@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { useCart } from '../contexts/CartContext'
 import Logo from './Logo'
@@ -7,9 +7,31 @@ interface NavbarProps {
   onCartToggle: () => void
 }
 
+const SCROLL_THRESHOLD = 20
+
 function Navbar({ onCartToggle }: NavbarProps) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  const [isScrolled, setIsScrolled] = useState(false)
   const { getTotalItems } = useCart()
+
+  useEffect(() => {
+    let timeoutId: number | null = null
+
+    const handleScroll = () => {
+      if (timeoutId) return
+      
+      timeoutId = window.setTimeout(() => {
+        setIsScrolled(window.scrollY > SCROLL_THRESHOLD)
+        timeoutId = null
+      }, 16)
+    }
+
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    return () => {
+      window.removeEventListener('scroll', handleScroll)
+      if (timeoutId) window.clearTimeout(timeoutId)
+    }
+  }, [])
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen)
@@ -18,7 +40,9 @@ function Navbar({ onCartToggle }: NavbarProps) {
   const totalItems = getTotalItems()
 
   return (
-    <header className="bg-primary-600 text-white shadow-lg">
+    <header className={`sticky top-0 z-40 bg-primary-600 text-white transition-all duration-300 ${
+      isScrolled ? 'shadow-xl' : 'shadow-lg'
+    }`}>
       <nav className="container mx-auto px-4 py-4">
         <div className="flex items-center justify-between">
           {/* Logo */}
