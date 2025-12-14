@@ -1,11 +1,21 @@
 import { Link } from 'react-router-dom'
 import type { Product } from '../data/products'
+import { useCart } from '../contexts/CartContext'
 
 interface ProductCardProps {
   product: Product
 }
 
 function ProductCard({ product }: ProductCardProps) {
+  const { addToCart } = useCart()
+
+  const handleAddToCart = (e: React.MouseEvent) => {
+    // Prevent navigation to product detail page and stop event bubbling to parent Link
+    e.preventDefault()
+    e.stopPropagation()
+    addToCart(product)
+  }
+
   return (
     <Link
       to={`/products/${product.id}`}
@@ -19,9 +29,16 @@ function ProductCard({ product }: ProductCardProps) {
         <h3 className="text-base sm:text-lg md:text-xl font-bold mb-2 line-clamp-2 text-neutral-900 group-hover:text-primary-600 transition-colors">
           {product.name}
         </h3>
-        <p className="text-primary-600 font-bold text-lg sm:text-xl mt-auto">
+        <p className="text-primary-600 font-bold text-lg sm:text-xl mb-3">
           {product.price}
         </p>
+        <button
+          onClick={handleAddToCart}
+          className="mt-auto w-full bg-gradient-to-r from-primary-600 to-primary-700 hover:from-primary-700 hover:to-primary-800 text-white font-bold py-2 px-4 rounded-lg transition-all text-sm shadow-md hover:shadow-lg transform hover:-translate-y-0.5"
+          aria-label={`Add ${product.name} to cart`}
+        >
+          Add to Cart
+        </button>
       </div>
     </Link>
   )
