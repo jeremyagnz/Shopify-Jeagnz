@@ -27,16 +27,16 @@ function Layout() {
             
             {/* Desktop Navigation */}
             <div className="hidden md:flex items-center gap-4 lg:gap-6">
-              <Link to="/" className="hover:text-primary-100 transition-colors font-medium">
+              <Link to="/" className="text-white hover:text-primary-100 transition-colors font-medium">
                 Home
               </Link>
-              <Link to="/about" className="hover:text-primary-100 transition-colors font-medium">
+              <Link to="/about" className="text-white hover:text-primary-100 transition-colors font-medium">
                 About
               </Link>
-              <Link to="/products" className="hover:text-primary-100 transition-colors font-medium">
+              <Link to="/products" className="text-white hover:text-primary-100 transition-colors font-medium">
                 Products
               </Link>
-              <Link to="/contact" className="hover:text-primary-100 transition-colors font-medium">
+              <Link to="/contact" className="text-white hover:text-primary-100 transition-colors font-medium">
                 Contact
               </Link>
               <button
@@ -101,7 +101,7 @@ function Layout() {
               <li>
                 <Link
                   to="/"
-                  className="block py-2 px-4 rounded hover:bg-primary-700 transition-colors font-medium"
+                  className="block py-2 px-4 rounded text-white hover:bg-primary-700 transition-colors font-medium"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   Home
@@ -110,7 +110,7 @@ function Layout() {
               <li>
                 <Link
                   to="/about"
-                  className="block py-2 px-4 rounded hover:bg-primary-700 transition-colors font-medium"
+                  className="block py-2 px-4 rounded text-white hover:bg-primary-700 transition-colors font-medium"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   About
@@ -119,7 +119,7 @@ function Layout() {
               <li>
                 <Link
                   to="/products"
-                  className="block py-2 px-4 rounded hover:bg-primary-700 transition-colors font-medium"
+                  className="block py-2 px-4 rounded text-white hover:bg-primary-700 transition-colors font-medium"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   Products
@@ -128,7 +128,7 @@ function Layout() {
               <li>
                 <Link
                   to="/contact"
-                  className="block py-2 px-4 rounded hover:bg-primary-700 transition-colors font-medium"
+                  className="block py-2 px-4 rounded text-white hover:bg-primary-700 transition-colors font-medium"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   Contact
