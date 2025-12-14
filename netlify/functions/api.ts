@@ -2,7 +2,6 @@ import { Handler } from '@netlify/functions';
 import express, { Application, Request, Response, NextFunction } from 'express';
 import serverless from 'serverless-http';
 import cors from 'cors';
-import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 
 // Load environment variables
@@ -10,6 +9,10 @@ dotenv.config();
 
 // Initialize Express app
 const app: Application = express();
+
+// Note: MongoDB integration has been removed to allow immediate deployment without configuration.
+// The API functions with mock/static data by default.
+// To add MongoDB support later, install mongoose and configure MONGODB_URI environment variable.
 
 // Configure CORS middleware
 // Allow requests from Netlify domain and localhost for development
@@ -45,61 +48,14 @@ app.use(cors({
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// MongoDB connection state
-let isConnected = false;
-
-// MongoDB connection function optimized for serverless
-async function connectToDatabase() {
-  if (isConnected) {
-    console.log('Using existing MongoDB connection');
-    return;
-  }
-
-  const MONGODB_URI = process.env.MONGODB_URI;
-
-  if (!MONGODB_URI) {
-    console.error('❌ MONGODB_URI environment variable is not set');
-    throw new Error('MONGODB_URI is required');
-  }
-
-  try {
-    await mongoose.connect(MONGODB_URI, {
-      retryWrites: true,
-      w: 'majority',
-      serverSelectionTimeoutMS: 5000,
-      socketTimeoutMS: 45000,
-      // Serverless-optimized settings
-      maxPoolSize: 10,
-      minPoolSize: 1,
-    });
-    
-    isConnected = true;
-    console.log('✅ Connected to MongoDB successfully');
-  } catch (error) {
-    console.error('❌ MongoDB connection error:', error);
-    throw error;
-  }
-}
-
 // Health check endpoint
-app.get('/api/health', async (req: Request, res: Response) => {
-  try {
-    await connectToDatabase();
-    res.json({
-      status: 'ok',
-      message: 'Server is running',
-      mongodb: mongoose.connection.readyState === 1 ? 'connected' : 'disconnected',
-      timestamp: new Date().toISOString()
-    });
-  } catch (error) {
-    res.status(500).json({
-      status: 'error',
-      message: 'Health check failed',
-      mongodb: 'disconnected',
-      error: error instanceof Error ? error.message : 'Unknown error',
-      timestamp: new Date().toISOString()
-    });
-  }
+// Returns server status without database dependency
+app.get('/api/health', (req: Request, res: Response) => {
+  res.json({
+    status: 'ok',
+    message: 'Server is running',
+    timestamp: new Date().toISOString()
+  });
 });
 
 // API documentation endpoint
@@ -112,7 +68,7 @@ app.get('/api', (req: Request, res: Response) => {
       health: {
         path: '/api/health',
         method: 'GET',
-        description: 'Health check endpoint - returns server and database status'
+        description: 'Health check endpoint - returns server status'
       },
       docs: {
         path: '/api/docs',

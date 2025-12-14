@@ -44,8 +44,5 @@
   # Directory where compiled functions will be output
   directory = "netlify/functions"
   
-  # Node bundler to use
+  # Node bundler to use (esbuild automatically bundles dependencies)
   node_bundler = "esbuild"
-  
-  # Include node_modules in function bundles
-  included_files = ["node_modules/**"]
