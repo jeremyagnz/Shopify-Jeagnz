@@ -39,6 +39,9 @@ src/
 ├── assets/         # Static assets (images, icons, fonts)
 ├── components/     # Reusable UI components
 │   ├── Layout.tsx       # App layout with responsive navigation & cart
+│   ├── Navbar.tsx       # Responsive navigation bar with mobile menu
+│   ├── Footer.tsx       # Site footer component
+│   ├── Logo.tsx         # Brand logo component
 │   ├── Hero.tsx         # Responsive hero/banner component
 │   ├── ProductCard.tsx  # Mobile-first product card
 │   ├── ProductGrid.tsx  # Responsive product grid
@@ -58,6 +61,11 @@ src/
 server/
 ├── index.ts       # Express server entry point
 └── README.md      # Server documentation
+
+netlify/
+└── functions/     # Netlify serverless functions
+    ├── api.ts     # Main API function (works without MongoDB)
+    └── docs.ts    # API documentation endpoint
 ```
 
 ## ✨ Features
@@ -74,11 +82,15 @@ server/
 
 ### Core Components
 
-- **Layout**: Responsive navigation with mobile hamburger menu and cart sidebar
+- **Layout**: Responsive app layout that wraps all pages
+- **Navbar**: Responsive navigation with mobile hamburger menu, cart icon, and sticky positioning
+- **Footer**: Site footer with branding and links
+- **Logo**: Brand logo component with SVG icon
 - **Hero**: Eye-catching hero sections with responsive typography
 - **ProductCard**: Mobile-optimized product cards with hover effects
 - **ProductGrid**: Responsive grid that adapts from 1 column (mobile) to 4 columns (desktop)
 - **Cart**: Full-featured shopping cart with quantity controls and checkout
+- **Button**: Reusable button component with consistent styling
 
 ### Context Providers
 
@@ -98,7 +110,7 @@ All pages are built with mobile-first responsive design:
 ### Prerequisites
 
 - Node.js 18+ and npm
-- MongoDB (local installation or MongoDB Atlas account)
+- MongoDB (optional - only needed if using the standalone Express server in `server/`)
 
 ### Installation
 
@@ -113,23 +125,28 @@ cd Shopify-Jeagnz
 npm install
 ```
 
-3. Configure environment variables:
-Create a `.env` file in the root directory (see `.env.example`):
+3. Configure environment variables (optional):
+Create a `.env` file in the root directory if needed (see `.env.example`):
 ```bash
 PORT=5000
-MONGODB_URI=mongodb://localhost:27017/shopify-jeagnz
+# MongoDB is optional - only needed for standalone Express server
+# MONGODB_URI=mongodb://localhost:27017/shopify-jeagnz
 CORS_ORIGIN=http://localhost:5173
 ```
+
+> **Note:** Environment variables are optional. The application works out of the box without configuration when using Netlify Functions deployment.
 
 4. Start the development server (frontend):
 ```bash
 npm run dev
 ```
 
-5. Start the Express server (backend):
+5. (Optional) Start the Express server (backend) - only needed for standalone server:
 ```bash
 npm run server
 ```
+
+> **Note:** The standalone Express server requires MongoDB. For development without MongoDB, use `npm run dev:netlify` instead to run with Netlify Functions locally.
 
 6. Open your browser and navigate to `http://localhost:5173`
 
@@ -153,14 +170,33 @@ See [server/TESTING_GUIDE.md](./server/TESTING_GUIDE.md) for detailed instructio
 
 ### Frontend
 - `npm run dev` - Start the frontend development server (Vite)
+- `npm run dev:netlify` - Start local development with Netlify Functions (no MongoDB required)
 - `npm run build` - Build frontend for production
 - `npm run lint` - Run ESLint
 - `npm run preview` - Preview production build locally
 
-### Backend
-- `npm run server` - Start the Express server with hot reload (development)
+### Backend (Standalone Express Server)
+- `npm run server` - Start the Express server with hot reload (requires MongoDB)
 - `npm run server:build` - Build the server TypeScript code
 - `npm run server:start` - Start the compiled server (production)
+
+## 🚀 Deployment
+
+This application is deployed to **Netlify** with serverless functions for the backend API.
+
+**Live Application:** [https://shopify-jeagnz.netlify.app](https://shopify-jeagnz.netlify.app)
+
+### Deployment Options
+
+1. **Netlify (Recommended)**: Zero-config deployment with Netlify Functions
+   - No environment variables required for basic functionality
+   - MongoDB is optional (uses mock data by default)
+   - See [DEPLOYMENT.md](./DEPLOYMENT.md) for detailed instructions
+
+2. **Standalone Server**: Traditional Express server deployment
+   - Requires MongoDB connection
+   - Suitable for VPS or cloud hosting
+   - See [server/README.md](./server/README.md) for details
 
 ## 🎨 Tailwind CSS Configuration
 
