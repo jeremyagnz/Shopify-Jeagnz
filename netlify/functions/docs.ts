@@ -1,6 +1,6 @@
-import { Handler, HandlerEvent, HandlerContext } from '@netlify/functions';
+import { Handler } from '@netlify/functions';
 
-export const handler: Handler = async (event: HandlerEvent, context: HandlerContext) => {
+export const handler: Handler = async () => {
   const html = `
 <!DOCTYPE html>
 <html lang="en">

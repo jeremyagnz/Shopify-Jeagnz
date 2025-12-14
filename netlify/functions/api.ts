@@ -140,7 +140,7 @@ app.get('/', (req: Request, res: Response) => {
 });
 
 // Error handling middleware
-app.use((err: Error, req: Request, res: Response, next: any) => {
+app.use((err: Error, req: Request, res: Response) => {
   console.error('Error:', err);
   res.status(500).json({
     status: 'error',
@@ -150,4 +150,6 @@ app.use((err: Error, req: Request, res: Response, next: any) => {
 });
 
 // Export the serverless function handler
-export const handler: Handler = serverless(app);
+// Wrap serverless-http to match Netlify Handler type
+const serverlessHandler = serverless(app);
+export const handler: Handler = serverlessHandler as Handler;
