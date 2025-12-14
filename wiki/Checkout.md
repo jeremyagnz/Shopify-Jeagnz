@@ -474,19 +474,32 @@ const generateOrderId = (): string => {
 
 ### Formulario de Checkout
 
-![Checkout Form Desktop](https://via.placeholder.com/800x600/6366f1/ffffff?text=Checkout+Form+Desktop)
-*Formulario de checkout en vista desktop con resumen de orden*
+> **Vista en vivo:** [https://shopify-jeagnz.netlify.app/checkout](https://shopify-jeagnz.netlify.app/checkout)
+> 
+> *Nota: Necesitas agregar productos al carrito primero para acceder a checkout.*
+> 
+> En desktop, el formulario ocupa 2/3 del ancho con el resumen de orden en el 1/3 restante. En mobile, el resumen aparece arriba y el formulario abajo en layout vertical.
 
-![Checkout Form Mobile](https://via.placeholder.com/400x800/6366f1/ffffff?text=Checkout+Form+Mobile)
-*Formulario de checkout optimizado para mobile*
+> **Prueba el flujo completo:**
+> 1. Agrega productos en [/products](https://shopify-jeagnz.netlify.app/products)
+> 2. Abre el carrito y haz clic en "Proceed to Checkout"
+> 3. Llena el formulario (puedes usar datos de prueba)
+> 4. Observa la validación en tiempo real
+> 5. Haz clic en "Place Order" para simular la compra
 
 ### Estados de Procesamiento
 
-![Processing Order](https://via.placeholder.com/600x400/6366f1/ffffff?text=Processing+Order)
-*Estado de procesamiento con spinner y botón deshabilitado*
-
-![Order Success](https://via.placeholder.com/600x300/10b981/ffffff?text=Order+Success)
-*Toast de confirmación de orden exitosa*
+> **Estados de procesamiento:**
+> 
+> Durante el procesamiento (2 segundos simulados), verás:
+> - Botón "Place Order" deshabilitado con texto "Processing..."
+> - Spinner de carga animado
+> - Toast notification azul indicando "Processing your order..."
+> 
+> Después del éxito:
+> - Toast verde con mensaje "Order #XXX placed successfully!"
+> - Carrito se limpia automáticamente
+> - Redirección a /products después de 1.5 segundos
 
 ---
 

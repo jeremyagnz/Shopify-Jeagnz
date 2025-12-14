@@ -68,11 +68,11 @@ El módulo de productos es el corazón de Shopify Jeagnz, proporcionando una exp
 
 ### Capturas de Pantalla
 
-![Products Grid](https://via.placeholder.com/800x600/6366f1/ffffff?text=Products+Grid+View)
-*Vista del grid de productos con 4 columnas en desktop*
+> **Vista en vivo:** [https://shopify-jeagnz.netlify.app/products](https://shopify-jeagnz.netlify.app/products)
+> 
+> Grid responsive de productos con 24 jeans diferentes, mostrando 4 columnas en desktop, 3 en tablet, 2 en pantallas pequeñas y 1 en mobile.
 
-![Products Search](https://via.placeholder.com/800x400/6366f1/ffffff?text=Search+Products)
-*Barra de búsqueda con filtrado en tiempo real*
+> **Prueba la búsqueda:** En la aplicación en vivo, escribe "Slim" o "Classic" en la barra de búsqueda para ver el filtrado en tiempo real sin recargar la página.
 
 ---
 
@@ -196,11 +196,11 @@ El módulo de productos es el corazón de Shopify Jeagnz, proporcionando una exp
 
 ### Capturas de Pantalla
 
-![Product Detail Desktop](https://via.placeholder.com/800x500/6366f1/ffffff?text=Product+Detail+Desktop)
-*Vista detallada en desktop con layout horizontal*
+> **Vista en vivo (Desktop):** [https://shopify-jeagnz.netlify.app/products/1](https://shopify-jeagnz.netlify.app/products/1)
+> 
+> En desktop, la imagen se muestra a la izquierda y los detalles a la derecha en un layout horizontal. Botón "Add to Cart" prominente al final.
 
-![Product Detail Mobile](https://via.placeholder.com/400x700/6366f1/ffffff?text=Product+Detail+Mobile)
-*Vista detallada en mobile con layout vertical*
+> **Vista Mobile:** Abre el mismo enlace desde tu móvil para ver el layout vertical con la imagen arriba y detalles abajo, optimizado para touch.
 
 ---
 

@@ -10,8 +10,9 @@
 
 **URL de la aplicación desplegada:** [https://shopify-jeagnz.netlify.app/](https://shopify-jeagnz.netlify.app/)
 
-![Homepage Preview](https://via.placeholder.com/800x450/6366f1/ffffff?text=Shopify+Jeagnz+Homepage)
-*Página de inicio de Shopify Jeagnz con hero section y productos destacados*
+> **Ver la aplicación en vivo:** [https://shopify-jeagnz.netlify.app/](https://shopify-jeagnz.netlify.app/)
+> 
+> *Página de inicio de Shopify Jeagnz con hero section llamativo, navegación intuitiva y productos destacados en grid responsive.*
 
 ---
 
@@ -110,16 +111,20 @@ Explora la documentación completa navegando por las siguientes secciones:
 ## 📸 Capturas de Pantalla
 
 ### Página de Inicio
-![Home Page](../screenshots/admin-initial.png)
-*Hero section con productos destacados y navegación intuitiva*
+> **Vista en vivo:** [https://shopify-jeagnz.netlify.app/](https://shopify-jeagnz.netlify.app/)
+> 
+> Hero section impactante con gradiente de colores, llamado a la acción destacado, y productos destacados en grid responsive.
 
 ### Catálogo de Productos
-![Products Page](https://via.placeholder.com/800x450/6366f1/ffffff?text=Products+Catalog)
-*Grid responsive con búsqueda y filtros*
+> **Vista en vivo:** [https://shopify-jeagnz.netlify.app/products](https://shopify-jeagnz.netlify.app/products)
+> 
+> Grid responsive con 24 productos de jeans, barra de búsqueda en tiempo real, y diseño mobile-first que se adapta de 1 a 4 columnas según el dispositivo.
 
 ### Panel de Administración
 ![Admin Panel](../screenshots/admin-table-view.png)
-*Interface de gestión completa con tabla de productos*
+> **Vista en vivo:** [https://shopify-jeagnz.netlify.app/admin](https://shopify-jeagnz.netlify.app/admin)
+> 
+> Interface de gestión completa con tabla de productos, formularios CRUD, y actualizaciones optimistas de UI con feedback visual.
 
 ---
 

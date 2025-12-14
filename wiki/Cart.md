@@ -149,11 +149,14 @@ interface CartContextType {
 
 ### Capturas de Pantalla
 
-![Cart Empty](https://via.placeholder.com/400x500/6366f1/ffffff?text=Empty+Cart)
-*Carrito vacío con mensaje de estado*
-
-![Cart With Items](https://via.placeholder.com/400x600/6366f1/ffffff?text=Cart+With+Items)
-*Carrito con productos y controles de cantidad*
+> **Prueba el carrito:** [https://shopify-jeagnz.netlify.app/products](https://shopify-jeagnz.netlify.app/products)
+> 
+> 1. Agrega un producto haciendo clic en "Add to Cart"
+> 2. Observa el badge del carrito actualizarse en el navbar
+> 3. Haz clic en el icono del carrito para abrir el modal
+> 4. Prueba los controles de cantidad (+/-) y el botón "Remove"
+> 
+> El modal del carrito muestra todos los productos agregados, controles para modificar cantidades, subtotales por producto, total general, y botones para continuar comprando o proceder al checkout.
 
 ---
 

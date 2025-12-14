@@ -171,7 +171,9 @@ http://localhost:5173
 
 Deberías ver la página de inicio de Shopify Jeagnz:
 
-![Local Development](https://via.placeholder.com/800x450/6366f1/ffffff?text=Local+Development+Running)
+> **Ejemplo en vivo:** [https://shopify-jeagnz.netlify.app/](https://shopify-jeagnz.netlify.app/)
+> 
+> Cuando ejecutes `npm run dev`, verás una interfaz idéntica a la aplicación en producción, con hot-reload para desarrollo rápido.
 
 ---
 
