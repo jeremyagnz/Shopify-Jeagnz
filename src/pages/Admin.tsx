@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import type { Product } from '../data/products';
 import { productApi } from '../services/api';
 import { useToast } from '../contexts/ToastContext';
@@ -18,9 +18,10 @@ const Admin = () => {
   const [showForm, setShowForm] = useState(false);
   const [editingProduct, setEditingProduct] = useState<Product | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [optimisticUpdates, setOptimisticUpdates] = useState<Set<number>>(new Set());
   const { showToast } = useToast();
 
-  const loadProducts = async () => {
+  const loadProducts = useCallback(async () => {
     try {
       setLoading(true);
       setError(null);
@@ -47,11 +48,11 @@ const Admin = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [showToast]);
 
   useEffect(() => {
     loadProducts();
-  }, []);
+  }, [loadProducts]);
 
   const handleCreate = () => {
     setEditingProduct(null);
@@ -68,28 +69,68 @@ const Admin = () => {
       return;
     }
 
+    // Mark as optimistically updating
+    setOptimisticUpdates(prev => new Set(prev).add(id));
+
+    // Optimistic update: remove product from UI immediately
+    const previousProducts = [...products];
+    setProducts(products.filter(p => p.id !== id));
+    showToast('Deleting product...', 'info');
+
     try {
       const response = await productApi.delete(id) as { status: string; message?: string };
       if (response.status === 'success') {
         showToast('Product deleted successfully', 'success');
+        // Refresh to ensure consistency with backend
         await loadProducts();
       } else {
         throw new Error(response.message || 'Failed to delete product');
       }
     } catch (err) {
+      // Rollback on error: restore the deleted product
+      setProducts(previousProducts);
       const errorMessage = err instanceof Error ? err.message : 'Failed to delete product';
       showToast(API_UNAVAILABLE_MESSAGE, 'error');
       console.error(errorMessage);
+    } finally {
+      // Remove from optimistic updates tracking
+      setOptimisticUpdates(prev => {
+        const next = new Set(prev);
+        next.delete(id);
+        return next;
+      });
     }
   };
 
   const handleSubmit = async (productData: Omit<Product, 'id'>) => {
     setIsSubmitting(true);
+    const previousProducts = [...products];
+    
+    // Determine product ID upfront
+    const productId = editingProduct 
+      ? editingProduct.id 
+      : (products.length === 0 ? 1 : Math.max(0, ...products.map(p => p.id)) + 1);
+    
     try {
       let response: { status: string; data?: Product; message?: string };
+      let optimisticProduct: Product;
+
       if (editingProduct) {
+        // Optimistic update: update product in UI immediately
+        optimisticProduct = { ...editingProduct, ...productData };
+        setOptimisticUpdates(prev => new Set(prev).add(productId));
+        setProducts(products.map(p => p.id === editingProduct.id ? optimisticProduct : p));
+        showToast('Updating product...', 'info');
+        
         response = await productApi.update(editingProduct.id, productData) as { status: string; data?: Product; message?: string };
       } else {
+        // Optimistic create: add temporary product with placeholder ID
+        // Handle empty array case: if products is empty, start at 1, otherwise use max + 1
+        optimisticProduct = { id: productId, ...productData };
+        setOptimisticUpdates(prev => new Set(prev).add(productId));
+        setProducts([...products, optimisticProduct]);
+        showToast('Creating product...', 'info');
+        
         response = await productApi.create(productData) as { status: string; data?: Product; message?: string };
       }
 
@@ -100,15 +141,24 @@ const Admin = () => {
         );
         setShowForm(false);
         setEditingProduct(null);
+        // Refresh to ensure consistency with backend (gets real IDs, etc.)
         await loadProducts();
       } else {
         throw new Error(response.message || 'Failed to save product');
       }
     } catch (err) {
+      // Rollback on error: restore previous state
+      setProducts(previousProducts);
       const errorMessage = err instanceof Error ? err.message : 'Failed to save product';
       showToast(API_UNAVAILABLE_MESSAGE, 'error');
       console.error(errorMessage);
     } finally {
+      // Remove from optimistic updates tracking (in finally to ensure cleanup regardless of success/failure)
+      setOptimisticUpdates(prev => {
+        const next = new Set(prev);
+        next.delete(productId);
+        return next;
+      });
       setIsSubmitting(false);
     }
   };
@@ -193,47 +243,73 @@ const Admin = () => {
                 </tr>
               </thead>
               <tbody className="bg-white dark:bg-slate-800 divide-y divide-slate-200 dark:divide-slate-700">
-                {products.map((product) => (
-                  <tr key={product.id} className="hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors">
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-slate-900 dark:text-white">
-                      {product.id}
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-slate-900 dark:text-white">
-                      {product.name}
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-slate-900 dark:text-white">
-                      {product.price}
-                    </td>
-                    <td className="px-6 py-4 text-sm text-slate-900 dark:text-white max-w-md truncate">
-                      {product.description}
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-slate-900 dark:text-white">
-                      {product.featured ? (
-                        <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-emerald-100 text-emerald-800 dark:bg-emerald-900 dark:text-emerald-200">
-                          Yes
-                        </span>
-                      ) : (
-                        <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-slate-100 text-slate-800 dark:bg-slate-700 dark:text-slate-300">
-                          No
-                        </span>
-                      )}
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                      <button
-                        onClick={() => handleEdit(product)}
-                        className="text-indigo-600 hover:text-indigo-900 dark:text-indigo-400 dark:hover:text-indigo-300 mr-4"
-                      >
-                        Edit
-                      </button>
-                      <button
-                        onClick={() => handleDelete(product.id)}
-                        className="text-red-600 hover:text-red-900 dark:text-red-400 dark:hover:text-red-300"
-                      >
-                        Delete
-                      </button>
-                    </td>
-                  </tr>
-                ))}
+                {products.map((product) => {
+                  const isOptimistic = optimisticUpdates.has(product.id);
+                  return (
+                    <tr 
+                      key={product.id} 
+                      className={`hover:bg-slate-50 dark:hover:bg-slate-700 transition-all duration-300 ${
+                        isOptimistic ? 'bg-blue-50 dark:bg-blue-900/20 animate-pulse' : ''
+                      }`}
+                    >
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-slate-900 dark:text-white">
+                        {product.id}
+                        {isOptimistic && (
+                          <span className="ml-2 inline-flex items-center">
+                            <svg className="animate-spin h-3 w-3 text-blue-600 dark:text-blue-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                              <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                              <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                            </svg>
+                          </span>
+                        )}
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-slate-900 dark:text-white">
+                        {product.name}
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-slate-900 dark:text-white">
+                        {product.price}
+                      </td>
+                      <td className="px-6 py-4 text-sm text-slate-900 dark:text-white max-w-md truncate">
+                        {product.description}
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-slate-900 dark:text-white">
+                        {product.featured ? (
+                          <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-emerald-100 text-emerald-800 dark:bg-emerald-900 dark:text-emerald-200">
+                            Yes
+                          </span>
+                        ) : (
+                          <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-slate-100 text-slate-800 dark:bg-slate-700 dark:text-slate-300">
+                            No
+                          </span>
+                        )}
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                        <button
+                          onClick={() => handleEdit(product)}
+                          disabled={isOptimistic}
+                          className={`mr-4 ${
+                            isOptimistic 
+                              ? 'text-slate-400 dark:text-slate-600 cursor-not-allowed' 
+                              : 'text-indigo-600 hover:text-indigo-900 dark:text-indigo-400 dark:hover:text-indigo-300'
+                          }`}
+                        >
+                          Edit
+                        </button>
+                        <button
+                          onClick={() => handleDelete(product.id)}
+                          disabled={isOptimistic}
+                          className={`${
+                            isOptimistic 
+                              ? 'text-slate-400 dark:text-slate-600 cursor-not-allowed' 
+                              : 'text-red-600 hover:text-red-900 dark:text-red-400 dark:hover:text-red-300'
+                          }`}
+                        >
+                          Delete
+                        </button>
+                      </td>
+                    </tr>
+                  );
+                })}
               </tbody>
             </table>
           </div>
