@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import type { Product } from '../data/products'
 import { useCart } from '../contexts/CartContext'
+import { useToast } from '../contexts/ToastContext'
 
 interface ProductCardProps {
   product: Product
@@ -8,12 +9,14 @@ interface ProductCardProps {
 
 function ProductCard({ product }: ProductCardProps) {
   const { addToCart } = useCart()
+  const { showToast } = useToast()
 
   const handleAddToCart = (e: React.MouseEvent) => {
     // Prevent navigation to product detail page and stop event bubbling to parent Link
     e.preventDefault()
     e.stopPropagation()
     addToCart(product)
+    showToast(`${product.name} added to cart!`, 'success')
   }
 
   return (

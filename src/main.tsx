@@ -3,6 +3,7 @@ import { createRoot } from 'react-dom/client'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import './index.css'
 import { CartProvider } from './contexts/CartContext.tsx'
+import { ToastProvider } from './contexts/ToastContext.tsx'
 import Layout from './components/Layout.tsx'
 import Home from './pages/Home.tsx'
 import About from './pages/About.tsx'
@@ -43,8 +44,10 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <CartProvider>
-      <RouterProvider router={router} />
-    </CartProvider>
+    <ToastProvider>
+      <CartProvider>
+        <RouterProvider router={router} />
+      </CartProvider>
+    </ToastProvider>
   </StrictMode>,
 )
