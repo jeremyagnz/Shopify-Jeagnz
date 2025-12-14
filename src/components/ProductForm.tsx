@@ -10,6 +10,7 @@ interface ProductFormProps {
 }
 
 // Price format validation: $XX.XX (e.g., $79.99)
+// Allows $0, $0.00, and any positive integer or decimal with exactly 2 decimal places
 const PRICE_FORMAT_REGEX = /^\$\d+(\.\d{2})?$/;
 
 const ProductForm = ({ product, onSubmit, onCancel, isSubmitting = false }: ProductFormProps) => {

@@ -140,7 +140,7 @@ app.post('/api/products', (req: Request, res: Response) => {
     name,
     price,
     description,
-    featured: featured || false
+    featured: featured ?? false
   };
   
   mockProducts.push(newProduct);
@@ -183,7 +183,7 @@ app.put('/api/products/:id', (req: Request, res: Response) => {
     name,
     price,
     description,
-    featured: featured || false
+    featured: featured ?? false
   };
   
   res.json({

@@ -7,6 +7,10 @@ import { Button } from '../components/Button';
 import LoadingBanner from '../components/LoadingBanner';
 import ErrorBanner from '../components/ErrorBanner';
 
+// Error message for API unavailability
+const API_UNAVAILABLE_MESSAGE = 
+  'API not available. Changes will not persist. Deploy to Netlify to enable full functionality.';
+
 const Admin = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
@@ -74,10 +78,7 @@ const Admin = () => {
       }
     } catch (err) {
       const errorMessage = err instanceof Error ? err.message : 'Failed to delete product';
-      showToast(
-        'API not available. Changes will not persist. Deploy to Netlify to enable full functionality.',
-        'error'
-      );
+      showToast(API_UNAVAILABLE_MESSAGE, 'error');
       console.error(errorMessage);
     }
   };
@@ -105,10 +106,7 @@ const Admin = () => {
       }
     } catch (err) {
       const errorMessage = err instanceof Error ? err.message : 'Failed to save product';
-      showToast(
-        'API not available. Changes will not persist. Deploy to Netlify to enable full functionality.',
-        'error'
-      );
+      showToast(API_UNAVAILABLE_MESSAGE, 'error');
       console.error(errorMessage);
     } finally {
       setIsSubmitting(false);
