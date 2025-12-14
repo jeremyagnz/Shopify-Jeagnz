@@ -22,7 +22,7 @@ const Admin = () => {
       setError(null);
       
       try {
-        const response = await productApi.getAll();
+        const response = await productApi.getAll() as { status: string; data: Product[]; message?: string };
         if (response.status === 'success') {
           setProducts(response.data);
         } else {
@@ -65,7 +65,7 @@ const Admin = () => {
     }
 
     try {
-      const response = await productApi.delete(id);
+      const response = await productApi.delete(id) as { status: string; message?: string };
       if (response.status === 'success') {
         showToast('Product deleted successfully', 'success');
         await loadProducts();
@@ -85,11 +85,11 @@ const Admin = () => {
   const handleSubmit = async (productData: Omit<Product, 'id'>) => {
     setIsSubmitting(true);
     try {
-      let response;
+      let response: { status: string; data?: Product; message?: string };
       if (editingProduct) {
-        response = await productApi.update(editingProduct.id, productData);
+        response = await productApi.update(editingProduct.id, productData) as { status: string; data?: Product; message?: string };
       } else {
-        response = await productApi.create(productData);
+        response = await productApi.create(productData) as { status: string; data?: Product; message?: string };
       }
 
       if (response.status === 'success') {

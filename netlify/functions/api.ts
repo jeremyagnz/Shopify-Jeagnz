@@ -133,8 +133,10 @@ app.post('/api/products', (req: Request, res: Response) => {
   }
   
   // Create new product with auto-generated ID
+  // Use reduce for better performance with large arrays
+  const maxId = mockProducts.reduce((max, p) => Math.max(max, p.id), 0);
   const newProduct = {
-    id: Math.max(...mockProducts.map(p => p.id), 0) + 1,
+    id: maxId + 1,
     name,
     price,
     description,

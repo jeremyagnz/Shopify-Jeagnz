@@ -9,6 +9,9 @@ interface ProductFormProps {
   isSubmitting?: boolean;
 }
 
+// Price format validation: $XX.XX (e.g., $79.99)
+const PRICE_FORMAT_REGEX = /^\$\d+(\.\d{2})?$/;
+
 const ProductForm = ({ product, onSubmit, onCancel, isSubmitting = false }: ProductFormProps) => {
   const [formData, setFormData] = useState({
     name: product?.name || '',
@@ -39,7 +42,7 @@ const ProductForm = ({ product, onSubmit, onCancel, isSubmitting = false }: Prod
 
     if (!formData.price.trim()) {
       newErrors.price = 'Price is required';
-    } else if (!/^\$\d+(\.\d{2})?$/.test(formData.price)) {
+    } else if (!PRICE_FORMAT_REGEX.test(formData.price)) {
       newErrors.price = 'Price must be in format $XX.XX (e.g., $79.99)';
     }
 

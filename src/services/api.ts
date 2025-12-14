@@ -37,7 +37,7 @@ export const api = {
     return {
       data,
       status: response.status,
-      message: data.message,
+      message: data?.message,
     };
   },
 
@@ -53,7 +53,7 @@ export const api = {
     return {
       data,
       status: response.status,
-      message: data.message,
+      message: data?.message,
     };
   },
 
@@ -65,49 +65,35 @@ export const api = {
     return {
       data,
       status: response.status,
-      message: data.message,
+      message: data?.message,
     };
   },
 };
 
-// Product-specific API methods
+// Product-specific API methods using generic api methods
 export const productApi = {
   getAll: async () => {
-    const response = await fetch(getApiUrl('/api/products'));
-    return response.json();
+    const response = await api.get('/api/products');
+    return response.data;
   },
 
   getById: async (id: number) => {
-    const response = await fetch(getApiUrl(`/api/products/${id}`));
-    return response.json();
+    const response = await api.get(`/api/products/${id}`);
+    return response.data;
   },
 
   create: async (product: Omit<Product, 'id'>) => {
-    const response = await fetch(getApiUrl('/api/products'), {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(product),
-    });
-    return response.json();
+    const response = await api.post('/api/products', product);
+    return response.data;
   },
 
   update: async (id: number, product: Omit<Product, 'id'>) => {
-    const response = await fetch(getApiUrl(`/api/products/${id}`), {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(product),
-    });
-    return response.json();
+    const response = await api.put(`/api/products/${id}`, product);
+    return response.data;
   },
 
   delete: async (id: number) => {
-    const response = await fetch(getApiUrl(`/api/products/${id}`), {
-      method: 'DELETE',
-    });
-    return response.json();
+    const response = await api.delete(`/api/products/${id}`);
+    return response.data;
   },
 };
