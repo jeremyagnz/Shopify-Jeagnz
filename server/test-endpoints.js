@@ -19,7 +19,7 @@ const colors = {
   cyan: '\x1b[36m'
 };
 
-// Read port from environment or use default
+// Leer puerto desde variables de entorno o usar valor por defecto
 const PORT = process.env.PORT || 5000;
 
 function makeRequest(path, callback) {
@@ -45,7 +45,7 @@ function makeRequest(path, callback) {
           data: parsedData
         });
       } catch (error) {
-        callback(new Error(`Failed to parse JSON response: ${error.message}. Response: ${data}`));
+        callback(new Error(`Error al parsear respuesta JSON: ${error.message}. Respuesta: ${data}`));
       }
     });
   });

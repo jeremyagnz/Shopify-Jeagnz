@@ -184,6 +184,6 @@ Una vez que el servidor funcione correctamente:
 
 ## Recursos Adicionales
 
-- [Documentación de Express](https://expressjs.com/)
-- [Documentación de Mongoose](https://mongoosejs.com/)
-- [MongoDB Atlas](https://www.mongodb.com/cloud/atlas)
+- [Documentación de Express (sitio externo)](https://expressjs.com/)
+- [Documentación de Mongoose (sitio externo)](https://mongoosejs.com/)
+- [MongoDB Atlas - Base de datos en la nube (sitio externo)](https://www.mongodb.com/cloud/atlas)
