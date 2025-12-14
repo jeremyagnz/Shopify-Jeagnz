@@ -47,7 +47,7 @@ function Navbar({ onCartToggle }: NavbarProps) {
         <div className="flex items-center justify-between">
           {/* Logo */}
           <Link to="/" className="flex items-center hover:opacity-90 transition-opacity">
-            <Logo className="w-7 h-7 sm:w-8 sm:h-8" />
+            <Logo className="w-10 h-10 sm:w-12 sm:h-12" showText={true} />
           </Link>
           
           {/* Desktop Navigation */}

@@ -28,27 +28,42 @@ function Toast({ message, onClose }: ToastProps) {
     return () => clearTimeout(timer)
   }, [message.id, onClose])
 
-  const bgColor = {
-    success: 'bg-green-500',
-    error: 'bg-red-500',
-    info: 'bg-blue-500'
+  const styles = {
+    success: {
+      bg: 'bg-gradient-to-r from-green-500 to-green-600',
+      icon: '✓',
+      iconBg: 'bg-green-600'
+    },
+    error: {
+      bg: 'bg-gradient-to-r from-red-500 to-red-600',
+      icon: '✕',
+      iconBg: 'bg-red-600'
+    },
+    info: {
+      bg: 'bg-gradient-to-r from-blue-500 to-blue-600',
+      icon: 'ℹ',
+      iconBg: 'bg-blue-600'
+    }
   }[message.type || 'success']
 
   return (
     <div
-      className={`${bgColor} text-white px-6 py-4 rounded-lg shadow-lg transition-all duration-300 transform ${
-        isVisible ? 'translate-x-0 opacity-100' : 'translate-x-full opacity-0'
-      } flex items-center gap-3 min-w-[280px] max-w-md`}
+      className={`${styles.bg} text-white px-5 py-4 rounded-xl shadow-2xl transition-all duration-300 transform ${
+        isVisible ? 'translate-x-0 opacity-100 scale-100' : 'translate-x-full opacity-0 scale-95'
+      } flex items-center gap-3 min-w-[300px] max-w-md backdrop-blur-sm`}
     >
+      <div className={`${styles.iconBg} rounded-full w-8 h-8 flex items-center justify-center font-bold text-lg flex-shrink-0`}>
+        {styles.icon}
+      </div>
       <div className="flex-1">
-        <p className="font-medium text-sm sm:text-base">{message.message}</p>
+        <p className="font-semibold text-sm sm:text-base leading-snug">{message.message}</p>
       </div>
       <button
         onClick={() => {
           setIsVisible(false)
           setTimeout(() => onClose(message.id), 300)
         }}
-        className="text-white hover:text-neutral-200 transition-colors"
+        className="text-white hover:text-neutral-200 transition-colors hover:rotate-90 transform duration-200 flex-shrink-0"
         aria-label="Close notification"
       >
         <svg
@@ -56,7 +71,7 @@ function Toast({ message, onClose }: ToastProps) {
           fill="none"
           strokeLinecap="round"
           strokeLinejoin="round"
-          strokeWidth="2"
+          strokeWidth="2.5"
           viewBox="0 0 24 24"
           stroke="currentColor"
         >
