@@ -46,9 +46,8 @@ function Navbar({ onCartToggle }: NavbarProps) {
       <nav className="container mx-auto px-4 py-4">
         <div className="flex items-center justify-between">
           {/* Logo */}
-          <Link to="/" className="flex items-center gap-2 sm:gap-3 hover:opacity-90 transition-opacity">
+          <Link to="/" className="flex items-center hover:opacity-90 transition-opacity">
             <Logo className="w-7 h-7 sm:w-8 sm:h-8" />
-            <h1 className="text-xl sm:text-2xl font-bold">Shopify Jeagnz</h1>
           </Link>
           
           {/* Desktop Navigation */}
