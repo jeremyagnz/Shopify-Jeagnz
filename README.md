@@ -1,14 +1,27 @@
 # Shopify-Jeagnz
 
-A modern React application built with TypeScript and Vite, featuring a clean and organized folder structure for scalable development.
+A modern e-commerce application built with React, TypeScript, and Vite, featuring a mobile-first responsive design and scalable folder structure.
 
 ## 🚀 Tech Stack
 
 - **React 19** - A JavaScript library for building user interfaces
 - **TypeScript** - Type-safe JavaScript
 - **Vite** - Next generation frontend tooling
-- **Tailwind CSS 4** - A utility-first CSS framework
+- **Tailwind CSS 4** - A utility-first CSS framework with custom responsive breakpoints
+- **React Router** - Client-side routing
 - **ESLint** - Code linting and formatting
+
+## 📱 Mobile-First Responsive Design
+
+This application is built with a **mobile-first approach**, ensuring optimal user experience across all devices:
+
+- **Mobile (320px+)**: Optimized layouts with touch-friendly components
+- **Small tablets (475px+)**: Enhanced grid layouts using custom `xs` breakpoint
+- **Tablets (768px+)**: Multi-column layouts and expanded navigation
+- **Desktop (1024px+)**: Full-featured experience with side-by-side layouts
+- **Large screens (1280px+)**: Maximum content width with optimal spacing
+
+All components use responsive Tailwind CSS classes (e.g., `text-sm sm:text-base md:text-lg`) to scale smoothly across devices.
 
 ## 📁 Project Structure
 
@@ -16,14 +29,56 @@ A modern React application built with TypeScript and Vite, featuring a clean and
 src/
 ├── assets/         # Static assets (images, icons, fonts)
 ├── components/     # Reusable UI components
-├── hooks/          # Custom React hooks
-├── pages/          # Page components
-├── services/       # API and external service integrations
-├── types/          # TypeScript type definitions
-├── utils/          # Helper functions and utilities
-├── main.tsx        # Application entry point
-└── index.css       # Global styles
+│   ├── Layout.tsx       # App layout with responsive navigation & cart
+│   ├── Hero.tsx         # Responsive hero/banner component
+│   ├── ProductCard.tsx  # Mobile-first product card
+│   ├── ProductGrid.tsx  # Responsive product grid
+│   ├── Cart.tsx         # Shopping cart with mobile optimization
+│   └── Button.tsx       # Reusable button component
+├── contexts/       # React context providers
+│   └── CartContext.tsx  # Shopping cart state management
+├── data/          # Static data and mock APIs
+├── hooks/         # Custom React hooks
+├── pages/         # Page components with mobile-first layouts
+├── services/      # API and external service integrations
+├── types/         # TypeScript type definitions
+├── utils/         # Helper functions and utilities
+├── main.tsx       # Application entry point
+└── index.css      # Global styles & Tailwind configuration
 ```
+
+## ✨ Features
+
+- 🛍️ **E-commerce Ready**: Product catalog, cart functionality, and checkout flow
+- 📱 **Mobile-First**: Optimized for mobile devices with responsive design
+- 🎨 **Modern UI**: Clean, professional design with Tailwind CSS
+- 🛒 **Shopping Cart**: Persistent cart with add/remove/update quantity
+- 🔄 **State Management**: Context API for global state management
+- 🚀 **Fast Performance**: Built with Vite for lightning-fast HMR
+- ♿ **Accessible**: ARIA labels and semantic HTML
+
+## 🧩 Component Architecture
+
+### Core Components
+
+- **Layout**: Responsive navigation with mobile hamburger menu and cart sidebar
+- **Hero**: Eye-catching hero sections with responsive typography
+- **ProductCard**: Mobile-optimized product cards with hover effects
+- **ProductGrid**: Responsive grid that adapts from 1 column (mobile) to 4 columns (desktop)
+- **Cart**: Full-featured shopping cart with quantity controls and checkout
+
+### Context Providers
+
+- **CartContext**: Global shopping cart state with add/remove/update operations
+
+### Pages
+
+All pages are built with mobile-first responsive design:
+- **Home**: Hero section with featured products
+- **Products**: Product grid with responsive layout
+- **ProductDetail**: Mobile-optimized product details with cart integration
+- **About**: Company information with responsive layout
+- **Contact**: Mobile-friendly contact form
 
 ## 🛠️ Getting Started
 
@@ -62,19 +117,39 @@ npm run dev
 
 This project uses **Tailwind CSS v4** with custom responsive breakpoints configured:
 
-- **xs**: 475px
-- **sm**: 640px (default)
-- **md**: 768px (default)
-- **lg**: 1024px (default)
-- **xl**: 1280px (default)
-- **2xl**: 1536px (default)
+- **xs**: 475px (custom - for small phones in landscape)
+- **sm**: 640px (default - large phones & small tablets)
+- **md**: 768px (default - tablets)
+- **lg**: 1024px (default - laptops)
+- **xl**: 1280px (default - desktops)
+- **2xl**: 1536px (default - large desktops)
 
-The configuration is defined in `src/index.css` using the `@theme` directive. You can use these breakpoints in your components like:
+The configuration is defined in `src/index.css` using the `@theme` directive.
+
+### Mobile-First Responsive Patterns
+
+All components follow mobile-first design principles using responsive Tailwind classes:
 
 ```jsx
-<div className="xs:text-sm md:text-base lg:text-lg">
-  Responsive text
+// Typography scales from mobile to desktop
+<h1 className="text-2xl sm:text-3xl md:text-4xl">
+  Responsive Heading
+</h1>
+
+// Grids adapt from 1 column (mobile) to 4 columns (desktop)
+<div className="grid grid-cols-1 xs:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+  {/* Grid items */}
 </div>
+
+// Spacing and padding increase with screen size
+<div className="p-4 sm:p-6 md:p-8">
+  {/* Content */}
+</div>
+
+// Navigation switches from hamburger menu to horizontal nav
+<nav className="hidden md:flex">
+  {/* Desktop navigation */}
+</nav>
 ```
 
 ## React Compiler
