@@ -3,6 +3,8 @@ import ProductGrid from '../components/ProductGrid'
 import { products } from '../data/products'
 
 function Home() {
+  const featuredProducts = products.filter(product => product.featured)
+
   return (
     <>
       <Hero
@@ -14,7 +16,7 @@ function Home() {
 
       <section className="mb-6 sm:mb-8 md:mb-12">
         <h2 className="text-xl sm:text-2xl md:text-3xl font-bold mb-4 sm:mb-6 text-neutral-900">Featured Products</h2>
-        <ProductGrid products={products} />
+        <ProductGrid products={featuredProducts} />
       </section>
 
       <section className="bg-gradient-to-br from-neutral-50 to-neutral-100 rounded-xl p-4 sm:p-6 md:p-8 text-center shadow-lg border border-neutral-200">
