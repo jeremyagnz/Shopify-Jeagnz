@@ -1,13 +1,36 @@
 import { useParams, Link } from 'react-router-dom'
-import { products } from '../data/products'
+import { useProducts } from '../hooks/useProducts'
 import { useCart } from '../contexts/CartContext'
 import { useToast } from '../contexts/ToastContext'
+import LoadingBanner from '../components/LoadingBanner'
 
 function ProductDetail() {
   const { id } = useParams()
   const { addToCart } = useCart()
   const { showToast } = useToast()
+  const { products, loading, retry } = useProducts()
   const product = products.find(p => p.id === Number(id))
+
+  if (loading) {
+    return (
+      <div className="max-w-2xl mx-auto mt-4 sm:mt-6 md:mt-8">
+        <Link to="/products" className="text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 font-medium mb-4 inline-flex items-center gap-1 text-sm sm:text-base group">
+          <span className="group-hover:-translate-x-1 transition-transform">←</span> Back to Products
+        </Link>
+        <LoadingBanner message="Loading product details..." onRetry={retry} />
+        <div className="p-4 sm:p-6 bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 rounded-xl shadow-xl animate-pulse">
+          <div className="bg-neutral-200 dark:bg-neutral-700 h-48 sm:h-56 md:h-64 rounded-xl mb-4 sm:mb-6" />
+          <div className="h-8 bg-neutral-200 dark:bg-neutral-700 rounded mb-3 w-3/4" />
+          <div className="h-6 bg-neutral-200 dark:bg-neutral-700 rounded mb-3 w-1/3" />
+          <div className="space-y-2 mb-4">
+            <div className="h-4 bg-neutral-200 dark:bg-neutral-700 rounded w-full" />
+            <div className="h-4 bg-neutral-200 dark:bg-neutral-700 rounded w-5/6" />
+          </div>
+          <div className="h-12 bg-neutral-200 dark:bg-neutral-700 rounded-lg" />
+        </div>
+      </div>
+    )
+  }
 
   if (!product) {
     return (
