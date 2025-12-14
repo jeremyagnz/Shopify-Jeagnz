@@ -1,10 +1,12 @@
 import { useParams, Link } from 'react-router-dom'
 import { products } from '../data/products'
 import { useCart } from '../contexts/CartContext'
+import { useToast } from '../contexts/ToastContext'
 
 function ProductDetail() {
   const { id } = useParams()
   const { addToCart } = useCart()
+  const { showToast } = useToast()
   const product = products.find(p => p.id === Number(id))
 
   if (!product) {
@@ -23,6 +25,7 @@ function ProductDetail() {
 
   const handleAddToCart = () => {
     addToCart(product)
+    showToast(`${product.name} added to cart!`, 'success')
   }
 
   return (

@@ -334,6 +334,96 @@ export const handler: Handler = async () => {
         </div>
       </div>
 
+      <!-- Get All Products Endpoint -->
+      <div class="endpoint-section">
+        <div class="endpoint-header">
+          <div class="endpoint-title">
+            <span class="method get">GET</span>
+            <span class="path">/api/products</span>
+          </div>
+        </div>
+        <div class="endpoint-body">
+          <div class="endpoint-description">
+            Returns a list of all available products in the catalog with their details including id, name, price, description, and featured status.
+          </div>
+          
+          <div class="example-section">
+            <div class="example-title">Example Response:</div>
+            <div class="code-block">{
+  "status": "success",
+  "data": [
+    {
+      "id": 1,
+      "name": "Classic Jeans",
+      "price": "$79.99",
+      "description": "Timeless style with a perfect fit.",
+      "featured": true
+    },
+    {
+      "id": 2,
+      "name": "Skinny Jeans",
+      "price": "$89.99",
+      "description": "Modern slim fit for a sleek look.",
+      "featured": true
+    }
+    // ... more products
+  ],
+  "count": 24,
+  "timestamp": "2024-01-01T00:00:00.000Z"
+}</div>
+          </div>
+          
+          <button class="try-button" onclick="testEndpoint('/api/products', 'products-response')">
+            🚀 Try It Now
+          </button>
+          <div id="products-response" class="response-container"></div>
+        </div>
+      </div>
+
+      <!-- Get Product by ID Endpoint -->
+      <div class="endpoint-section">
+        <div class="endpoint-header">
+          <div class="endpoint-title">
+            <span class="method get">GET</span>
+            <span class="path">/api/products/:id</span>
+          </div>
+        </div>
+        <div class="endpoint-body">
+          <div class="endpoint-description">
+            Returns detailed information about a specific product by its ID. Returns a 404 error if the product is not found.
+          </div>
+          
+          <div class="example-section">
+            <div class="example-title">Example Response (Success):</div>
+            <div class="code-block">{
+  "status": "success",
+  "data": {
+    "id": 1,
+    "name": "Classic Jeans",
+    "price": "$79.99",
+    "description": "Timeless style with a perfect fit.",
+    "featured": true
+  },
+  "timestamp": "2024-01-01T00:00:00.000Z"
+}</div>
+          </div>
+          
+          <div class="example-section">
+            <div class="example-title">Example Response (Not Found):</div>
+            <div class="code-block">{
+  "status": "error",
+  "message": "Product not found",
+  "timestamp": "2024-01-01T00:00:00.000Z"
+}</div>
+          </div>
+          
+          <button class="try-button" onclick="testEndpoint('/api/products/1', 'product-response')">
+            🚀 Try It Now (Product ID: 1)
+          </button>
+          <div id="product-response" class="response-container"></div>
+        </div>
+      </div>
+
       <!-- Documentation Endpoint -->
       <div class="endpoint-section">
         <div class="endpoint-header">
