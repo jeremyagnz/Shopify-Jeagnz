@@ -28,13 +28,14 @@ function Cart({ onClose }: CartProps) {
     setIsNavigating(true)
     showToast('Proceeding to checkout...', 'info')
     
-    // Close the cart if onClose is provided
-    if (onClose) {
-      onClose()
-    }
-    
-    // Small delay for better UX
+    // Delay to show spinner before closing cart and navigating
     timeoutRef.current = window.setTimeout(() => {
+      // Close the cart if onClose is provided
+      if (onClose) {
+        onClose()
+      }
+      
+      // Navigate to checkout
       navigate('/checkout')
       setIsNavigating(false)
       timeoutRef.current = null
