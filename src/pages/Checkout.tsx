@@ -42,22 +42,27 @@ function Checkout() {
 
     setIsProcessing(true)
 
-    // Simulate checkout processing (network delay)
-    await new Promise(resolve => setTimeout(resolve, 2000))
+    try {
+      // Simulate checkout processing (network delay)
+      await new Promise(resolve => setTimeout(resolve, 2000))
 
-    // Simulate successful order
-    const orderNumber = Math.random().toString(36).substring(2, 11).toUpperCase()
-    
-    // Clear cart after successful order
-    clearCart()
-    
-    // Show success message
-    showToast(`Order #${orderNumber} placed successfully!`, 'success')
-    
-    // Redirect to products page after a short delay
-    setTimeout(() => {
-      navigate('/products')
-    }, 1500)
+      // Simulate successful order
+      const orderNumber = Math.random().toString(36).substring(2, 11).toUpperCase()
+      
+      // Clear cart after successful order
+      clearCart()
+      
+      // Show success message
+      showToast(`Order #${orderNumber} placed successfully!`, 'success')
+      
+      // Redirect to products page after a short delay
+      setTimeout(() => {
+        navigate('/products')
+      }, 1500)
+    } catch (error) {
+      showToast('An error occurred. Please try again.', 'error')
+      setIsProcessing(false)
+    }
   }
 
   return (
