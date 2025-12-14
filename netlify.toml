@@ -22,16 +22,16 @@
   # Port for Netlify Functions in local dev
   functionsPort = 8888
 
+# Redirect /api/docs to the docs function (must come before wildcard)
+[[redirects]]
+  from = "/api/docs"
+  to = "/.netlify/functions/docs"
+  status = 200
+
 # Redirect all /api/* requests to Netlify Functions
 [[redirects]]
   from = "/api/*"
   to = "/.netlify/functions/api/:splat"
-  status = 200
-
-# Redirect /api/docs to the docs function
-[[redirects]]
-  from = "/api/docs"
-  to = "/.netlify/functions/docs"
   status = 200
 
 # SPA fallback - redirect all other requests to index.html for client-side routing
