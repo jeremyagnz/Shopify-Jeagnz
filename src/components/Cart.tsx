@@ -1,7 +1,9 @@
-import { useState } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useCart } from '../contexts/CartContext'
 import { useToast } from '../contexts/ToastContext'
+
+const CHECKOUT_NAVIGATION_DELAY = 300
 
 interface CartProps {
   onClose?: () => void
@@ -12,6 +14,15 @@ function Cart({ onClose }: CartProps) {
   const { cart, removeFromCart, updateQuantity, getTotalPrice } = useCart()
   const { showToast } = useToast()
   const [isNavigating, setIsNavigating] = useState(false)
+  const timeoutRef = useRef<number | null>(null)
+
+  useEffect(() => {
+    return () => {
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current)
+      }
+    }
+  }, [])
 
   const handleCheckout = () => {
     setIsNavigating(true)
@@ -23,10 +34,11 @@ function Cart({ onClose }: CartProps) {
     }
     
     // Small delay for better UX
-    setTimeout(() => {
+    timeoutRef.current = window.setTimeout(() => {
       navigate('/checkout')
       setIsNavigating(false)
-    }, 300)
+      timeoutRef.current = null
+    }, CHECKOUT_NAVIGATION_DELAY)
   }
 
   if (cart.length === 0) {
