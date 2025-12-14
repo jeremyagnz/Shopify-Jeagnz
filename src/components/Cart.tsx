@@ -1,9 +1,46 @@
+import { useState, useEffect, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useCart } from '../contexts/CartContext'
+import { useToast } from '../contexts/ToastContext'
 
-function Cart() {
+const CHECKOUT_NAVIGATION_DELAY = 300
+
+interface CartProps {
+  onClose?: () => void
+}
+
+function Cart({ onClose }: CartProps) {
   const navigate = useNavigate()
   const { cart, removeFromCart, updateQuantity, getTotalPrice } = useCart()
+  const { showToast } = useToast()
+  const [isNavigating, setIsNavigating] = useState(false)
+  const timeoutRef = useRef<number | null>(null)
+
+  useEffect(() => {
+    return () => {
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current)
+      }
+    }
+  }, [])
+
+  const handleCheckout = () => {
+    setIsNavigating(true)
+    showToast('Proceeding to checkout...', 'info')
+    
+    // Delay to show spinner before closing cart and navigating
+    timeoutRef.current = window.setTimeout(() => {
+      // Close the cart if onClose is provided
+      if (onClose) {
+        onClose()
+      }
+      
+      // Navigate to checkout
+      navigate('/checkout')
+      setIsNavigating(false)
+      timeoutRef.current = null
+    }, CHECKOUT_NAVIGATION_DELAY)
+  }
 
   if (cart.length === 0) {
     return (
@@ -72,9 +109,20 @@ function Cart() {
           </span>
         </div>
         <button 
-          onClick={() => navigate('/checkout')}
-          className="w-full bg-gradient-to-r from-primary-600 to-primary-700 hover:from-primary-700 hover:to-primary-800 dark:from-primary-500 dark:to-primary-600 dark:hover:from-primary-600 dark:hover:to-primary-700 text-white font-bold py-2.5 sm:py-3 px-4 sm:px-6 rounded-lg transition-all text-sm sm:text-base shadow-lg hover:shadow-xl transform hover:-translate-y-0.5">
-          Proceed to Checkout
+          onClick={handleCheckout}
+          disabled={isNavigating}
+          className="w-full bg-gradient-to-r from-primary-600 to-primary-700 hover:from-primary-700 hover:to-primary-800 dark:from-primary-500 dark:to-primary-600 dark:hover:from-primary-600 dark:hover:to-primary-700 text-white font-bold py-2.5 sm:py-3 px-4 sm:px-6 rounded-lg transition-all text-sm sm:text-base shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none disabled:hover:shadow-lg">
+          {isNavigating ? (
+            <span className="flex items-center justify-center">
+              <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+              </svg>
+              Loading...
+            </span>
+          ) : (
+            'Proceed to Checkout'
+          )}
         </button>
       </div>
     </div>
