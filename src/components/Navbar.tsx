@@ -59,11 +59,11 @@ function Navbar({ onCartToggle }: NavbarProps) {
   }
 
   const navLinks = [
-    { to: '/', label: 'Home' },
-    { to: '/about', label: 'About' },
-    { to: '/products', label: 'Products' },
-    { to: '/contact', label: 'Contact' },
-    { to: '/admin', label: 'Admin' },
+    { to: '/', label: '🏠 Home' },
+    { to: '/about', label: '👋 About' },
+    { to: '/products', label: '👖 Products' },
+    { to: '/contact', label: '📧 Contact' },
+    { to: '/admin', label: '⚙️ Admin' },
   ]
 
   const isActiveRoute = (path: string) => location.pathname === path
