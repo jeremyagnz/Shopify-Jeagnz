@@ -147,6 +147,28 @@
     }
   }
 
+  @keyframes slide-up {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes fade-in-scale {
+    from {
+      opacity: 0;
+      transform: scale(0.9);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
   .animate-fade-in {
     animation: fade-in 0.2s ease-out;
   }
@@ -157,6 +179,30 @@
 
   .animate-slide-in-stagger {
     animation: slide-in-stagger 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    opacity: 0;
+  }
+
+  .animate-slide-up {
+    animation: slide-up 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .animate-fade-in-scale {
+    animation: fade-in-scale 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  /* Staggered animation delays for grid items */
+  .animate-stagger-1 { animation-delay: 0.05s; }
+  .animate-stagger-2 { animation-delay: 0.1s; }
+  .animate-stagger-3 { animation-delay: 0.15s; }
+  .animate-stagger-4 { animation-delay: 0.2s; }
+  .animate-stagger-5 { animation-delay: 0.25s; }
+  .animate-stagger-6 { animation-delay: 0.3s; }
+  .animate-stagger-7 { animation-delay: 0.35s; }
+  .animate-stagger-8 { animation-delay: 0.4s; }
+
+  /* Delayed section animation - combines slide-up with delay */
+  .animate-delay-section {
+    animation: slide-up 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.2s forwards;
     opacity: 0;
   }
 

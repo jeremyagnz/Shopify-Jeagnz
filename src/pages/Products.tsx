@@ -29,7 +29,7 @@ function Products() {
 
   return (
     <div>
-      <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 sm:mb-6 md:mb-8 text-neutral-900 dark:text-neutral-100">
+      <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 sm:mb-6 md:mb-8 text-neutral-900 dark:text-neutral-100 animate-slide-down">
         Our Products
       </h1>
       

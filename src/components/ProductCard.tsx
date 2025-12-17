@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import type { Product } from '../data/products'
 import { useCart } from '../contexts/CartContext'
@@ -10,6 +11,7 @@ interface ProductCardProps {
 function ProductCard({ product }: ProductCardProps) {
   const { addToCart } = useCart()
   const { showToast } = useToast()
+  const [imageError, setImageError] = useState(false)
 
   const handleAddToCart = (e: React.MouseEvent) => {
     // Prevent navigation to product detail page and stop event bubbling to parent Link
@@ -24,8 +26,18 @@ function ProductCard({ product }: ProductCardProps) {
       to={`/products/${product.id}`}
       className="bg-white dark:bg-neutral-800 border-2 border-neutral-200 dark:border-neutral-700 rounded-2xl overflow-hidden hover:shadow-2xl hover:border-primary-400 dark:hover:border-primary-500 transition-all duration-300 flex flex-col h-full group hover:-translate-y-1"
     >
-      <div className="bg-gradient-to-br from-neutral-100 via-neutral-50 to-neutral-200 dark:from-neutral-700 dark:via-neutral-800 dark:to-neutral-700 aspect-square flex items-center justify-center relative overflow-hidden">
-        <span className="text-neutral-400 dark:text-neutral-500 text-sm sm:text-base font-medium z-10">Product Image</span>
+      <div className="aspect-square relative overflow-hidden bg-gradient-to-br from-neutral-100 via-neutral-50 to-neutral-200 dark:from-neutral-700 dark:via-neutral-800 dark:to-neutral-700 flex items-center justify-center">
+        {!imageError ? (
+          <img 
+            src={product.image} 
+            alt={product.name}
+            className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+            loading="lazy"
+            onError={() => setImageError(true)}
+          />
+        ) : (
+          <span className="text-neutral-400 dark:text-neutral-500 text-sm sm:text-base font-medium z-10">Product Image</span>
+        )}
         <div className="absolute inset-0 bg-transparent group-hover:bg-primary-600/10 transition-all duration-300"></div>
         {product.featured && (
           <div 
