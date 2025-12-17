@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { useCart } from '../contexts/CartContext'
 import { useTheme } from '../contexts/ThemeContext'
@@ -17,6 +17,7 @@ function Navbar({ onCartToggle }: NavbarProps) {
   const { getTotalItems } = useCart()
   const { theme, toggleTheme } = useTheme()
   const location = useLocation()
+  const prevTotalItemsRef = useRef(0)
 
   const totalItems = getTotalItems()
 
@@ -39,13 +40,16 @@ function Navbar({ onCartToggle }: NavbarProps) {
     }
   }, [])
 
-  // Pulse animation when cart items change
+  // Pulse animation when cart items increase - this is intentional for visual feedback
   useEffect(() => {
-    if (totalItems > 0) {
+    if (totalItems > prevTotalItemsRef.current && totalItems > 0) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setCartPulse(true)
       const timer = setTimeout(() => setCartPulse(false), 600)
+      prevTotalItemsRef.current = totalItems
       return () => clearTimeout(timer)
     }
+    prevTotalItemsRef.current = totalItems
   }, [totalItems])
 
   const toggleMobileMenu = () => {
