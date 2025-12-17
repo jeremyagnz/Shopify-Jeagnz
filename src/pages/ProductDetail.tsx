@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import { useProducts } from '../hooks/useProducts'
 import { useCart } from '../contexts/CartContext'
@@ -10,6 +11,7 @@ function ProductDetail() {
   const { showToast } = useToast()
   const { products, loading, retry } = useProducts()
   const product = products.find(p => p.id === Number(id))
+  const [imageError, setImageError] = useState(false)
 
   if (loading) {
     return (
@@ -57,15 +59,16 @@ function ProductDetail() {
         <span className="group-hover:-translate-x-1 transition-transform">←</span> Back to Products
       </Link>
       <div className="h-64 sm:h-80 md:h-96 rounded-xl mb-4 sm:mb-6 overflow-hidden animate-fade-in-scale bg-gradient-to-br from-neutral-100 to-neutral-200 dark:from-neutral-700 dark:to-neutral-800 flex items-center justify-center">
-        <img 
-          src={product.image} 
-          alt={product.name}
-          className="w-full h-full object-cover"
-          onError={(e) => {
-            e.currentTarget.style.display = 'none'
-            e.currentTarget.parentElement!.innerHTML = `<span class="text-neutral-400 dark:text-neutral-500 text-base sm:text-lg md:text-xl font-medium">Product Image</span>`
-          }}
-        />
+        {!imageError ? (
+          <img 
+            src={product.image} 
+            alt={product.name}
+            className="w-full h-full object-cover"
+            onError={() => setImageError(true)}
+          />
+        ) : (
+          <span className="text-neutral-400 dark:text-neutral-500 text-base sm:text-lg md:text-xl font-medium">Product Image</span>
+        )}
       </div>
       <h2 className="text-2xl sm:text-3xl font-bold mb-3 sm:mb-4 text-neutral-900 dark:text-neutral-100">{product.name}</h2>
       <p className="text-xl sm:text-2xl text-primary-600 dark:text-primary-400 font-bold mb-3 sm:mb-4">{product.price}</p>

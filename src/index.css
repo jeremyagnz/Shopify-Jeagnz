@@ -202,8 +202,8 @@
 
   /* Delayed section animation */
   .animate-delay-section {
-    animation-delay: 0.2s;
     opacity: 0;
+    animation-delay: 0.2s;
     animation-fill-mode: forwards;
   }
 
