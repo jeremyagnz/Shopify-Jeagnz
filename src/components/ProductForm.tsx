@@ -18,6 +18,7 @@ const ProductForm = ({ product, onSubmit, onCancel, isSubmitting = false }: Prod
     name: product?.name || '',
     price: product?.price || '',
     description: product?.description || '',
+    image: product?.image || '',
     featured: product?.featured || false,
   });
 
@@ -29,6 +30,7 @@ const ProductForm = ({ product, onSubmit, onCancel, isSubmitting = false }: Prod
         name: product.name,
         price: product.price,
         description: product.description,
+        image: product.image,
         featured: product.featured || false,
       });
     }
@@ -49,6 +51,10 @@ const ProductForm = ({ product, onSubmit, onCancel, isSubmitting = false }: Prod
 
     if (!formData.description.trim()) {
       newErrors.description = 'Description is required';
+    }
+
+    if (!formData.image.trim()) {
+      newErrors.image = 'Image URL is required';
     }
 
     setErrors(newErrors);
@@ -141,6 +147,25 @@ const ProductForm = ({ product, onSubmit, onCancel, isSubmitting = false }: Prod
           placeholder="Describe the product features and benefits..."
         />
         {errors.description && <p className="mt-1 text-sm text-red-600 dark:text-red-400">{errors.description}</p>}
+      </div>
+
+      <div>
+        <label htmlFor="image" className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
+          Image URL *
+        </label>
+        <input
+          type="url"
+          id="image"
+          name="image"
+          value={formData.image}
+          onChange={handleChange}
+          disabled={isSubmitting}
+          className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-colors dark:bg-slate-700 dark:border-slate-600 dark:text-white ${
+            errors.image ? 'border-red-500' : 'border-slate-300'
+          }`}
+          placeholder="https://example.com/image.jpg"
+        />
+        {errors.image && <p className="mt-1 text-sm text-red-600 dark:text-red-400">{errors.image}</p>}
       </div>
 
       <div className="flex items-center">
