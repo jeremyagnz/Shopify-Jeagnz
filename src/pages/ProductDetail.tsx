@@ -56,11 +56,15 @@ function ProductDetail() {
       <Link to="/products" className="text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 font-medium mb-4 inline-flex items-center gap-1 text-sm sm:text-base group">
         <span className="group-hover:-translate-x-1 transition-transform">←</span> Back to Products
       </Link>
-      <div className="h-64 sm:h-80 md:h-96 rounded-xl mb-4 sm:mb-6 overflow-hidden animate-fade-in-scale">
+      <div className="h-64 sm:h-80 md:h-96 rounded-xl mb-4 sm:mb-6 overflow-hidden animate-fade-in-scale bg-gradient-to-br from-neutral-100 to-neutral-200 dark:from-neutral-700 dark:to-neutral-800 flex items-center justify-center">
         <img 
           src={product.image} 
           alt={product.name}
           className="w-full h-full object-cover"
+          onError={(e) => {
+            e.currentTarget.style.display = 'none'
+            e.currentTarget.parentElement!.innerHTML = `<span class="text-neutral-400 dark:text-neutral-500 text-base sm:text-lg md:text-xl font-medium">Product Image</span>`
+          }}
         />
       </div>
       <h2 className="text-2xl sm:text-3xl font-bold mb-3 sm:mb-4 text-neutral-900 dark:text-neutral-100">{product.name}</h2>
