@@ -9,6 +9,8 @@ interface NavbarProps {
 }
 
 const SCROLL_THRESHOLD = 20
+const MOBILE_MENU_STAGGER_DELAY = 50 // ms delay between each menu item animation
+const NAVBAR_HEIGHT = 72 // px - should match the actual navbar height
 
 function Navbar({ onCartToggle }: NavbarProps) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
@@ -216,13 +218,16 @@ function Navbar({ onCartToggle }: NavbarProps) {
             />
             
             {/* Mobile menu panel */}
-            <div className="fixed top-[72px] left-0 right-0 bottom-0 bg-gradient-to-b from-primary-600 to-primary-700 z-50 overflow-y-auto md:hidden animate-slide-down shadow-2xl">
+            <div 
+              className="fixed left-0 right-0 bottom-0 bg-gradient-to-b from-primary-600 to-primary-700 z-50 overflow-y-auto md:hidden animate-slide-down shadow-2xl"
+              style={{ top: `${NAVBAR_HEIGHT}px` }}
+            >
               <ul className="container mx-auto px-4 py-6 space-y-1">
                 {navLinks.map((link, index) => (
                   <li 
                     key={link.to}
                     className="animate-slide-in-stagger"
-                    style={{ animationDelay: `${index * 50}ms` }}
+                    style={{ animationDelay: `${index * MOBILE_MENU_STAGGER_DELAY}ms` }}
                   >
                     <Link
                       to={link.to}
